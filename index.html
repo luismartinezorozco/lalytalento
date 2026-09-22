@@ -317,7 +317,6 @@
                             <div>
                                 <select id="w-role" class="w-full border border-gray-200 bg-gray-50 rounded-lg p-2.5 text-sm font-bold text-[#542c1c] focus:bg-white focus:border-[#bb7434] outline-none">
                                     <option value="Colaborador">Colaborador</option>
-                                    <option value="Administrador">Administrador</option>
                                 </select>
                             </div>
                             <div>
@@ -335,7 +334,7 @@
                     <div id="bank-section-form" class="bg-white p-3 sm:p-4 rounded-xl sm:rounded-2xl card-shadow" style="display:none;">
                         <h4 class="font-bold text-gray-500 mb-2.5 sm:mb-3 text-xs sm:text-sm uppercase tracking-wide flex items-center gap-2"><i data-lucide="shield" class="w-4 h-4"></i> Info. Bancaria</h4>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
-                            <div><select id="w-bank-name" class="w-full border border-gray-200 bg-gray-50 rounded-lg p-2.5 text-sm focus:bg-white focus:border-[#bb7434] outline-none"><option value="">Banco</option><option value="Bancolombia">Bancolombia</option><option value="Davivienda">Davivienda</option><option value="Nequi">Nequi</option><option value="Otro">Otro</option></select></div>
+                            <div><select id="w-bank-name" onchange="window.handleBankChange(this)" class="w-full border border-gray-200 bg-gray-50 rounded-lg p-2.5 text-sm focus:bg-white focus:border-[#bb7434] outline-none"><option value="">Banco</option><option value="Bancolombia">Bancolombia</option><option value="Davivienda">Davivienda</option><option value="Nequi">Nequi</option><option value="BRE-B">BRE-B</option><option value="Otro">Otro</option></select></div>
                             <div><select id="w-bank-type" class="w-full border border-gray-200 bg-gray-50 rounded-lg p-2.5 text-sm focus:bg-white focus:border-[#bb7434] outline-none"><option value="Ahorros">Ahorros</option><option value="Corriente">Corriente</option><option value="Nequi/Daviplata">Nequi</option></select></div>
                             <div class="sm:col-span-2"><input type="number" id="w-bank-num" placeholder="Número de Cuenta" class="w-full border border-gray-200 bg-gray-50 rounded-lg p-2.5 text-sm focus:bg-white focus:border-[#bb7434] outline-none"></div>
                             <div class="sm:col-span-2"><input id="w-bank-owner" placeholder="Titular de la cuenta" class="w-full border border-gray-200 bg-gray-50 rounded-lg p-2.5 text-sm focus:bg-white focus:border-[#bb7434] outline-none"></div>
@@ -345,6 +344,35 @@
                     <div class="pt-2 pb-3">
                         <button type="submit" id="save-worker-btn" class="w-full bg-[#7be4af] text-[#542c1c] py-3 rounded-xl font-black text-sm sm:text-base hover:bg-[#66d19c] active:scale-95 transition-all shadow-lg shadow-[#7be4af]/25">Guardar</button>
                     </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FORMULARIO ADMIN -->
+    <div id="admin-modal" class="modal-backdrop">
+        <div class="modal-content w-full sm:max-w-sm">
+            <div class="flex justify-between items-center p-4 sm:p-6 border-b border-gray-100/80 shrink-0 bg-white/70 backdrop-blur-xl">
+                <h3 class="font-black text-lg sm:text-xl text-[#542c1c]">Nuevo Administrador</h3>
+                <button onclick="window.closeAdminModal()" class="p-2 hover:bg-gray-100 rounded-full text-gray-500 transition-all duration-300 ease-out hover:rotate-90 active:scale-90 shrink-0">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <div class="p-4 sm:p-6 bg-gray-50/60">
+                <form id="admin-form" onsubmit="window.saveAdmin(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 mb-1.5 uppercase tracking-wide">Nombre a mostrar</label>
+                        <input required id="a-name" placeholder="Ej: Laly Admin" class="w-full border border-gray-200 bg-white rounded-lg p-3 text-sm focus:border-[#bb7434] focus:ring-2 focus:ring-[#bb7434]/20 outline-none transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 mb-1.5 uppercase tracking-wide">Usuario</label>
+                        <input required id="a-user" placeholder="Usuario para ingresar" class="w-full border border-gray-200 bg-white rounded-lg p-3 text-sm focus:border-[#bb7434] focus:ring-2 focus:ring-[#bb7434]/20 outline-none transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 mb-1.5 uppercase tracking-wide">Contraseña</label>
+                        <input required type="password" id="a-pass" placeholder="Contraseña" class="w-full border border-gray-200 bg-white rounded-lg p-3 text-sm focus:border-[#bb7434] focus:ring-2 focus:ring-[#bb7434]/20 outline-none transition-all">
+                    </div>
+                    <button type="submit" id="save-admin-btn" class="w-full bg-[#bb7434] text-white py-3 rounded-xl font-black text-sm hover:bg-[#a55f25] active:scale-95 transition-all shadow-md mt-2">Crear Administrador</button>
                 </form>
             </div>
         </div>
@@ -382,6 +410,52 @@
             currentProfileDocs: [],
             activeProfileTab: 'rendimiento',
             loginType: 'admin'
+        };
+
+        window.evaluationCriteria = [
+            // POSITIVOS
+            { reason: "Llegar puntualmente al evento", amount: 5, type: "pos" },
+            { reason: "Foto de evidencia al llegar", amount: 5, type: "pos" },
+            { reason: "Foto de evidencia al finalizar", amount: 5, type: "pos" },
+            { reason: "Realizar un show espectacular y de calidad", amount: 5, type: "pos" },
+            { reason: "Ser recursivo ante situaciones inesperadas", amount: 5, type: "pos" },
+            { reason: "Realizar video de la utilería que entra y sale de la casa", amount: 5, type: "pos" },
+            { reason: "Recibir felicitación o reconocimiento especial de un cliente", amount: 10, type: "pos" },
+            { reason: "Mostrar disposición para apoyar al equipo", amount: 5, type: "pos" },
+            // NEGATIVOS
+            { reason: "Llegar tarde sin justificación", amount: 10, type: "neg" },
+            { reason: "No enviar foto de llegada", amount: 5, type: "neg" },
+            { reason: "No enviar foto de finalización", amount: 5, type: "neg" },
+            { reason: "Olvidar algún implemento del evento", amount: 10, type: "neg" },
+            { reason: "No revisar los elementos recibidos y reportar faltantes", amount: 10, type: "neg" },
+            { reason: "No realizar video de la utilería cuando sea solicitado", amount: 5, type: "neg" },
+            { reason: "No confirmar una información importante", amount: 5, type: "neg" },
+            { reason: "Incumplir una regla de la empresa", amount: 10, type: "neg" },
+            { reason: "Queja o reclamo de un cliente por comportamiento o incumplimiento", amount: 15, type: "neg" },
+            { reason: "Brindar su número personal a un cliente", amount: 30, type: "neg" },
+            { reason: "Solicitar el número personal del cliente", amount: 30, type: "neg" },
+            { reason: "Conducta que afecte gravemente la imagen de la empresa", amount: 40, type: "neg" },
+            { reason: "Mal de presentación personal, no aretes, no gorras que no sean de las asignadas, mal peinado, Jean rotos, camisa rotas", amount: 15, type: "neg" }
+        ];
+
+        window.handlePresetChange = (selectElement) => {
+            const val = selectElement.value;
+            const amountInput = document.getElementById('pt-amount');
+            const typeSelect = document.getElementById('pt-type');
+            const reasonInput = document.getElementById('pt-reason');
+
+            if (val === 'custom') {
+                amountInput.value = '';
+                reasonInput.value = '';
+                reasonInput.focus();
+            } else {
+                const criteria = window.evaluationCriteria[val];
+                if (criteria) {
+                    amountInput.value = criteria.amount;
+                    typeSelect.value = criteria.type;
+                    reasonInput.value = criteria.reason;
+                }
+            }
         };
 
         window.getInitials = (name) => {
@@ -510,10 +584,17 @@
                     const [validUser, validPass] = atob(encodedCredentials).split('|');
                     
                     if (username === validUser && password === validPass) {
-                        user = { id: 'admin_' + username, name: 'Administrador', username: username, role: 'Administrador', systemRole: 'ADMIN', status: 'activo', isAdmin: true };
+                        user = { id: 'admin_' + username, name: 'Administrador Principal', username: username, role: 'Administrador', systemRole: 'ADMIN', status: 'activo', isAdmin: true };
                     } else {
-                        window.showToast('Usuario o contraseña incorrectos', 'error');
-                        btn.innerHTML = 'Ingresar'; btn.disabled = false; return;
+                        const q = query(collection(db, "workers"), where("username", "==", username), where("password", "==", password), where("systemRole", "==", "ADMIN"), where("status", "==", "activo"));
+                        const querySnapshot = await getDocs(q);
+                        
+                        if (!querySnapshot.empty) {
+                            user = querySnapshot.docs[0].data();
+                        } else {
+                            window.showToast('Usuario o contraseña incorrectos', 'error');
+                            btn.innerHTML = 'Ingresar'; btn.disabled = false; return;
+                        }
                     }
                 } else {
                     const docInput = document.getElementById('login-cedula').value.trim();
@@ -681,7 +762,7 @@
         };
 
         window.renderDashboard = () => {
-            const activeWorkers = window.appState.dbWorkers.filter(w => w.status === 'activo').length;
+            const activeWorkers = window.appState.dbWorkers.filter(w => w.status === 'activo' && w.role !== 'Administrador').length;
             const firstName = window.appState.currentUser.name.split(' ')[0];
             const monthStr = window.appState.selectedMonth;
             const monthPoints = window.appState.points.filter(p => { const d = new Date(p.timestamp); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}` === monthStr; });
@@ -694,8 +775,37 @@
             const prevMonthPoints = window.appState.points.filter(p => { const d = new Date(p.timestamp); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}` === prevMonthStr; });
             const prevScores = {}; window.appState.dbWorkers.forEach(w => prevScores[w.id] = 0); 
             prevMonthPoints.forEach(p => prevScores[p.workerId] += (p.type === 'pos' ? p.amount : -p.amount));
-            const topWorkerPrev = window.appState.dbWorkers.filter(w => w.status === 'activo').sort((a,b) => prevScores[b.id] - prevScores[a.id])[0];
+            const topWorkerPrev = window.appState.dbWorkers.filter(w => w.status === 'activo' && w.role !== 'Administrador').sort((a,b) => prevScores[b.id] - prevScores[a.id])[0];
             const topWorkerPrevPts = topWorkerPrev ? prevScores[topWorkerPrev.id] : 0;
+
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const currentMonth = today.getMonth() + 1;
+            const currentDay = today.getDate();
+            
+            let upcomingBirthdays = window.appState.dbWorkers
+                .filter(w => w.status === 'activo' && w.birthday && w.role !== 'Administrador')
+                .map(w => {
+                    const [bYear, bMonth, bDay] = w.birthday.split('-');
+                    const month = parseInt(bMonth, 10);
+                    const day = parseInt(bDay, 10);
+                    
+                    let nextBdayYear = today.getFullYear();
+                    // Si el mes ya pasó, o es el mes actual pero el día ya pasó, sumamos 1 año
+                    if (month < currentMonth || (month === currentMonth && day < currentDay)) {
+                        nextBdayYear++;
+                    }
+                    
+                    const nextBdayDate = new Date(nextBdayYear, month - 1, day);
+                    const daysUntil = Math.round((nextBdayDate - today) / (1000 * 60 * 60 * 24));
+                    
+                    return { ...w, daysUntil, bMonth: month, bDay: day };
+                })
+                .sort((a, b) => a.daysUntil - b.daysUntil);
+
+            const nextBdayWorker = upcomingBirthdays.length > 0 ? upcomingBirthdays[0] : null;
+            const sharedBdaysCount = nextBdayWorker ? upcomingBirthdays.filter(w => w.daysUntil === nextBdayWorker.daysUntil).length - 1 : 0;
+            const monthNames = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 
             return `
             <div class="space-y-5 sm:space-y-7 md:space-y-8">
@@ -721,6 +831,35 @@
                         </div>
                         <div class="text-right shrink-0"><p class="text-lg sm:text-2xl md:text-3xl font-black">${topWorkerPrevPts}</p><p class="text-[9px] font-bold opacity-80">PTS</p></div>
                     </div>
+                </div>` : ''}
+
+                <!-- WIDGET PRÓXIMO CUMPLEAÑOS -->
+                ${nextBdayWorker ? `
+                <div onclick="viewWorkerProfile('${nextBdayWorker.id}')" class="max-w-7xl mx-auto bg-white border border-[#f3ebe3] rounded-lg sm:rounded-[1.5rem] p-4 sm:p-5 md:p-6 card-shadow flex items-center gap-3 sm:gap-4 relative overflow-hidden cursor-pointer hover:border-pink-200 transition-all active:scale-[0.98] group">
+                    <div class="absolute -right-4 -top-4 opacity-[0.03] group-hover:scale-110 group-hover:rotate-12 transition-transform duration-500 pointer-events-none">
+                        <i data-lucide="gift" class="w-24 h-24 text-pink-600"></i>
+                    </div>
+                    
+                    <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-pink-50 text-pink-500 flex items-center justify-center shrink-0 z-10 shadow-sm border border-pink-100">
+                        <i data-lucide="gift" class="w-6 h-6 sm:w-7 sm:h-7"></i>
+                    </div>
+                    
+                    <div class="flex-1 min-w-0 z-10">
+                        <p class="text-[10px] sm:text-[11px] font-black uppercase tracking-widest text-pink-500 mb-0.5">Próximo Cumpleaños</p>
+                        <div class="flex items-center gap-2">
+                            <h3 class="text-sm sm:text-base md:text-lg font-black text-gray-800 truncate">${nextBdayWorker.name} ${sharedBdaysCount > 0 ? `<span class="text-xs font-bold text-gray-400 font-medium">y ${sharedBdaysCount} más</span>` : ''}</h3>
+                        </div>
+                        <p class="text-[11px] sm:text-xs font-bold text-gray-500 truncate mt-0.5">
+                            ${nextBdayWorker.daysUntil === 0 ? '<span class="text-pink-500 font-black animate-pulse">¡Es hoy! 🎉</span>' : 
+                              nextBdayWorker.daysUntil === 1 ? '<span class="text-pink-400 font-black">Mañana 🎈</span>' : 
+                              `Faltan <span class="text-pink-500">${nextBdayWorker.daysUntil}</span> días (El ${nextBdayWorker.bDay} de ${monthNames[nextBdayWorker.bMonth - 1]})`}
+                        </p>
+                    </div>
+                    
+                    ${nextBdayWorker.photo ? 
+                        `<img src="${nextBdayWorker.photo}" loading="lazy" decoding="async" class="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover border-2 border-pink-100 shrink-0 z-10 shadow-sm">` : 
+                        `<div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-pink-100 text-pink-600 font-black text-sm sm:text-base flex items-center justify-center shrink-0 z-10 shadow-sm border border-pink-200">${window.getInitials(nextBdayWorker.name)}</div>`
+                    }
                 </div>` : ''}
 
                 <div class="max-w-7xl mx-auto">
@@ -764,7 +903,11 @@
                             <i data-lucide="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400"></i>
                             <input type="text" oninput="window.filterDirectory(this.value)" placeholder="Buscar colaborador..." class="w-full pl-9 pr-3 py-2.5 sm:py-3 rounded-xl border border-gray-200 bg-white text-xs sm:text-sm focus:outline-none focus:border-[#bb7434] shadow-sm transition-colors">
                         </div>
-                        ${canEdit ? `<button onclick="openWorkerForm()" class="shrink-0 bg-[#bb7434] text-white px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-sm hover:bg-[#a55f25] transition-colors active:scale-95"><i data-lucide="user-plus" class="w-4 h-4 shrink-0"></i> <span class="hidden sm:inline">Nuevo</span></button>` : ''}
+                        ${canEdit ? `
+                        <div class="flex gap-2 shrink-0">
+                            <button onclick="openWorkerForm()" class="bg-[#bb7434] text-white px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-sm hover:bg-[#a55f25] transition-colors active:scale-95"><i data-lucide="user-plus" class="w-4 h-4 shrink-0"></i> <span class="hidden sm:inline">Colaborador</span></button>
+                            ${window.appState.currentUser.systemRole === 'ADMIN' ? `<button onclick="window.openAdminModal()" title="Nuevo Administrador" class="bg-[#542c1c] text-[#cab2a2] px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-sm hover:text-white transition-colors active:scale-95"><i data-lucide="shield" class="w-4 h-4 shrink-0"></i> <span class="hidden sm:inline">+ Admin</span></button>` : ''}
+                        </div>` : ''}
                     </div>
                 </div>
                 
@@ -772,6 +915,9 @@
             `;
 
             window.appState.dbWorkers.forEach(w => {
+                // Ocultar a los administradores de la lista del directorio
+                if (w.role === 'Administrador') return;
+
                 let specsHtml = '';
                 if(w.specialties) {
                     const tags = w.specialties.split(',').map(s => s.trim()).filter(s => s);
@@ -824,7 +970,7 @@
             const monthPoints = window.appState.points.filter(p => { const d = new Date(p.timestamp); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}` === monthStr; });
             const scores = {}; window.appState.dbWorkers.forEach(w => scores[w.id] = 0); 
             monthPoints.forEach(p => scores[p.workerId] += (p.type === 'pos' ? p.amount : -p.amount));
-            const rankedWorkers = window.appState.dbWorkers.filter(w => w.status === 'activo').map(w => ({ ...w, totalPts: scores[w.id] })).sort((a, b) => b.totalPts - a.totalPts);
+            const rankedWorkers = window.appState.dbWorkers.filter(w => w.status === 'activo' && w.role !== 'Administrador').map(w => ({ ...w, totalPts: scores[w.id] })).sort((a, b) => b.totalPts - a.totalPts);
 
             let html = `
             <div class="max-w-7xl mx-auto">
@@ -859,7 +1005,7 @@
         };
 
         window.renderMessages = () => {
-            const workersOptions = window.appState.dbWorkers.filter(w => w.status === 'activo').map(w => `<option value="${w.id}">${window.escapeHtml(w.name)}</option>`).join('');
+            const workersOptions = window.appState.dbWorkers.filter(w => w.status === 'activo' && w.role !== 'Administrador').map(w => `<option value="${w.id}">${window.escapeHtml(w.name)}</option>`).join('');
             const sorted = [...(window.appState.messages || [])].sort((a,b) => b.timestamp - a.timestamp);
 
             let listHtml = sorted.map(m => {
@@ -967,6 +1113,21 @@
                 </div>`;
             }
 
+            const posOptions = window.evaluationCriteria.map((c, index) => c.type === 'pos' ? `<option value="${index}">${c.reason} (+${c.amount})</option>` : '').join('');
+            const negOptions = window.evaluationCriteria.map((c, index) => c.type === 'neg' ? `<option value="${index}">${c.reason} (-${c.amount})</option>` : '').join('');
+            
+            const presetSelectHtml = `
+                <select id="pt-preset" onchange="window.handlePresetChange(this)" class="w-full mb-2 p-2 sm:p-2.5 rounded-lg sm:rounded-xl bg-white md:bg-gray-50 border border-gray-200 text-xs sm:text-sm font-medium text-gray-700 focus:outline-none focus:border-[#bb7434] transition-colors cursor-pointer">
+                    <option value="custom">✍️ Otro (Ingreso manual de evaluación)</option>
+                    <optgroup label="✅ PUNTOS POSITIVOS">
+                        ${posOptions}
+                    </optgroup>
+                    <optgroup label="🚫 PENALIZACIONES">
+                        ${negOptions}
+                    </optgroup>
+                </select>
+            `;
+
             return `
             <div class="max-w-4xl mx-auto pb-6">
                 <div class="bg-white px-4 sm:px-6 md:px-10 pt-6 sm:pt-8 pb-4 sm:pb-6 shadow-sm z-10 relative md:rounded-3xl md:mt-2">
@@ -1004,13 +1165,14 @@
                         ${canGrade ? `
                         <div class="bg-white md:bg-gray-50 p-3 sm:p-4 rounded-lg sm:rounded-2xl card-shadow md:shadow-none md:border md:border-gray-100">
                             <h4 class="text-xs sm:text-sm font-bold text-gray-800 mb-2 sm:mb-3 flex items-center gap-2"><i data-lucide="plus-circle" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#bb7434]"></i> Agregar Evaluación</h4>
-                            <div class="flex flex-col sm:flex-row gap-2 text-xs sm:text-sm">
+                            ${presetSelectHtml}
+                            <div class="flex flex-col sm:flex-row gap-2 text-xs sm:text-sm mt-2">
                                 <div class="flex gap-2 shrink-0">
-                                    <input type="number" id="pt-amount" placeholder="Pts" class="w-16 sm:w-20 p-2 sm:p-2.5 rounded-lg sm:rounded-xl bg-gray-50 border border-gray-200 text-xs sm:text-sm font-bold focus:outline-none focus:border-[#bb7434]">
-                                    <select id="pt-type" class="p-2 sm:p-2.5 rounded-lg sm:rounded-xl bg-gray-50 border border-gray-200 text-xs sm:text-sm font-black focus:outline-none focus:border-[#bb7434]"><option value="pos" class="text-green-600">+</option><option value="neg" class="text-red-600">-</option></select>
+                                    <input type="number" id="pt-amount" placeholder="Pts" class="w-16 sm:w-20 p-2 sm:p-2.5 rounded-lg sm:rounded-xl bg-white md:bg-gray-50 border border-gray-200 text-xs sm:text-sm font-bold focus:outline-none focus:border-[#bb7434]">
+                                    <select id="pt-type" class="p-2 sm:p-2.5 rounded-lg sm:rounded-xl bg-white md:bg-gray-50 border border-gray-200 text-xs sm:text-sm font-black focus:outline-none focus:border-[#bb7434]"><option value="pos" class="text-green-600">+</option><option value="neg" class="text-red-600">-</option></select>
                                 </div>
-                                <input type="text" id="pt-reason" placeholder="Motivo o labor..." class="flex-1 p-2.5 rounded-xl bg-gray-50 border border-gray-200 text-sm font-medium focus:outline-none focus:border-[#bb7434]">
-                                <button onclick="savePoint()" class="bg-[#542c1c] text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-sm hover:opacity-90 shrink-0 mt-2 md:mt-0">Guardar</button>
+                                <input type="text" id="pt-reason" placeholder="Motivo o labor (editable)..." class="flex-1 p-2 sm:p-2.5 rounded-lg sm:rounded-xl bg-white md:bg-gray-50 border border-gray-200 text-sm font-medium focus:outline-none focus:border-[#bb7434]">
+                                <button onclick="savePoint()" class="bg-[#542c1c] text-white px-5 py-2 sm:py-2.5 rounded-lg sm:rounded-xl text-xs sm:text-sm font-bold shadow-sm hover:opacity-90 shrink-0 mt-2 sm:mt-0 transition-opacity">Guardar</button>
                             </div>
                         </div>` : ''}
                         <div class="bg-white md:bg-gray-50 p-4 rounded-2xl card-shadow md:shadow-none md:border md:border-gray-100">
@@ -1093,6 +1255,17 @@
         window.deleteDocFile = async (id) => { if(!confirm('¿Eliminar este documento?')) return; await deleteDoc(doc(db, "documents", id)); window.setView('profile'); };
         window.copyToClipboard = (txt) => { navigator.clipboard.writeText(txt); window.showToast('Cuenta copiada'); };
 
+        window.handleBankChange = (selectElement) => {
+            const numInput = document.getElementById('w-bank-num');
+            if (selectElement.value === 'BRE-B') {
+                numInput.type = 'text';
+                numInput.placeholder = 'Número / Código Alfanumérico';
+            } else {
+                numInput.type = 'number';
+                numInput.placeholder = 'Número de Cuenta';
+            }
+        };
+
         // ============ GESTIÓN DE COLABORADOR ============
         window.openWorkerForm = (id = null) => {
             document.getElementById('worker-form').reset(); 
@@ -1130,6 +1303,7 @@
                     document.getElementById('w-bank-type').value = w.bankType||'Ahorros'; 
                     document.getElementById('w-bank-num').value = w.bankNumber||''; 
                     document.getElementById('w-bank-owner').value = w.bankOwner||'';
+                    window.handleBankChange(document.getElementById('w-bank-name'));
                 }
                 
                 const dayMap = { 'Lunes': 'lunes', 'Martes': 'martes', 'Miércoles': 'miercoles', 'Jueves': 'jueves', 'Viernes': 'viernes', 'Sábado': 'sabado', 'Domingo': 'domingo' };
@@ -1167,12 +1341,40 @@
             } else { 
                 document.getElementById('worker-modal-title').innerText = 'Nuevo Colaborador'; 
                 document.getElementById('w-id').value = '';
+                if(canSeeBank) window.handleBankChange(document.getElementById('w-bank-name'));
                 document.getElementById('worker-modal').classList.add('active');
             }
         };
 
         window.closeWorkerModal = () => { document.getElementById('worker-modal').classList.remove('active'); };
         
+        window.openAdminModal = () => { document.getElementById('admin-form').reset(); document.getElementById('admin-modal').classList.add('active'); };
+        window.closeAdminModal = () => { document.getElementById('admin-modal').classList.remove('active'); };
+
+        window.saveAdmin = async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('save-admin-btn');
+            const name = document.getElementById('a-name').value.trim();
+            const username = document.getElementById('a-user').value.trim();
+            const password = document.getElementById('a-pass').value.trim();
+            
+            if(!name || !username || !password) return window.showToast('Completa todos los campos', 'error');
+            
+            btn.disabled = true; btn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 mx-auto animate-spin"></i>'; lucide.createIcons();
+            
+            try {
+                const q = query(collection(db, "workers"), where("username", "==", username));
+                const snap = await getDocs(q);
+                if(!snap.empty) { window.showToast('El usuario ya existe', 'error'); btn.innerHTML = 'Crear Administrador'; btn.disabled = false; return; }
+
+                const adminData = { id: 'admin_' + Date.now(), name, username, password, role: 'Administrador', systemRole: 'ADMIN', status: 'activo' };
+                await setDoc(doc(db, "workers", adminData.id), adminData);
+                
+                window.closeAdminModal(); window.showToast('Administrador creado exitosamente'); await fetchAllData();
+            } catch(e) { window.showToast('Error: ' + e.message, 'error'); } 
+            finally { btn.disabled = false; btn.innerText = 'Crear Administrador'; }
+        };
+
         window.handlePhotoUpload = (e) => { 
             const file = e.target.files[0]; 
             if(file && file.size < 800000) { 
@@ -1257,7 +1459,7 @@
                 photo: document.getElementById('w-photo-base64').value 
             };
             
-            if(workerData.role === 'Administrador') workerData.systemRole = 'ADMIN'; else workerData.systemRole = 'WORKER';
+            workerData.systemRole = 'WORKER';
 
             if (['ADMIN', 'HR'].includes(window.appState.currentUser.systemRole)) { 
                 workerData.bankName = document.getElementById('w-bank-name').value; workerData.bankType = document.getElementById('w-bank-type').value; 
