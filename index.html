@@ -9,6 +9,7 @@
     
     <link rel="icon" type="image/svg+xml" href="https://www.image2url.com/r2/default/images/1788374834690-45577bd2-1651-4ed7-ad3b-d8813e90ef11.svg">
     
+    <!-- Configuraciones PWA para iOS y Android (Icono de aplicación y pantalla completa) -->
     <meta name="theme-color" content="#542c1c">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -383,7 +384,6 @@
                     </div>
 
                     <div class="grid grid-cols-1 gap-3 sm:gap-4">
-                        <!-- Campo eliminado: Nombre del Evento y Lugar -->
                         <div>
                             <label class="block text-[10px] sm:text-xs font-bold text-gray-500 mb-1.5 uppercase tracking-wide">Fecha del Evento</label>
                             <input required type="date" id="pay-event-date" class="w-full border border-gray-200 bg-white rounded-xl p-3 text-sm focus:border-[#bb7434] outline-none shadow-sm">
@@ -393,14 +393,20 @@
                             <div class="relative">
                                 <select required id="pay-service" onchange="window.handleServiceChange(this)" class="w-full border border-gray-200 bg-white rounded-xl p-3 pr-10 text-sm font-semibold text-gray-800 focus:border-[#bb7434] outline-none shadow-sm appearance-none cursor-pointer">
                                     <option value="" disabled selected>Selecciona un servicio...</option>
-                                    <option value="Logística">Logística ($50.000)</option>
-                                    <option value="Personaje botarga / princesa">Personaje botarga / princesa ($60.000)</option>
-                                    <option value="Personaje show musical">Personaje show musical ($70.000)</option>
-                                    <option value="Pintucaritas">Pintucaritas ($70.000)</option>
-                                    <option value="Apoyo o asistente">Apoyo o asistente ($50.000)</option>
-                                    <option value="Animación">Animación (Valor manual)</option>
+                                    <option value="Logística">Logística</option>
+                                    <option value="Personaje botarga / princesa">Personaje botarga / princesa</option>
+                                    <option value="Personaje show musical">Personaje show musical</option>
+                                    <option value="Pintucaritas">Pintucaritas</option>
+                                    <option value="Apoyo o asistente">Apoyo o asistente</option>
+                                    <option value="Animación">Animación</option>
+                                    <option value="Hora loca">Hora loca</option>
+                                    <option value="Otros conceptos">Otros conceptos</option>
                                 </select>
                                 <i data-lucide="chevron-down" class="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none"></i>
+                            </div>
+                            <div id="other-concept-container" class="hidden mt-3">
+                                <label class="block text-[10px] sm:text-xs font-bold text-gray-500 mb-1.5 uppercase tracking-wide">Especificar concepto o rol</label>
+                                <input type="text" id="pay-other-concept" placeholder="¿Qué labor realizaste?" class="w-full border border-gray-200 bg-white rounded-xl p-3 text-sm focus:border-[#bb7434] outline-none shadow-sm transition-colors">
                             </div>
                         </div>
                         <div>
@@ -560,9 +566,19 @@
 
         window.handleServiceChange = (selectElement) => {
             const amountInput = document.getElementById('pay-amount');
+            const otherConceptContainer = document.getElementById('other-concept-container');
+            const otherConceptInput = document.getElementById('pay-other-concept');
             const val = selectElement.value;
             
-            // Precios automatizados
+            if (val === 'Otros conceptos') {
+                otherConceptContainer.classList.remove('hidden');
+                otherConceptInput.required = true;
+            } else {
+                otherConceptContainer.classList.add('hidden');
+                otherConceptInput.required = false;
+                otherConceptInput.value = '';
+            }
+            
             const prices = {
                 'Logística': 50000,
                 'Personaje botarga / princesa': 60000,
@@ -575,7 +591,8 @@
                 amountInput.value = prices[val];
                 amountInput.readOnly = true;
                 amountInput.classList.add('bg-gray-100');
-            } else if (val === 'Animación') {
+                amountInput.placeholder = "";
+            } else if (val === 'Animación' || val === 'Hora loca' || val === 'Otros conceptos') {
                 amountInput.value = '';
                 amountInput.readOnly = false;
                 amountInput.classList.remove('bg-gray-100');
@@ -585,7 +602,7 @@
                 amountInput.value = '';
                 amountInput.readOnly = true;
                 amountInput.classList.add('bg-gray-100');
-                amountInput.placeholder = "Selecciona un servicio primero";
+                amountInput.placeholder = "Selecciona un servicio...";
             }
         };
 
@@ -818,7 +835,6 @@
             }
             if (viewName === 'profile') {
                 const wId = window.appState.selectedWorker.id;
-                // Mantener en la pestaña seleccionada, si no existe o es nueva, ir a rendimiento
                 window.appState.activeProfileTab = window.appState.activeProfileTab || 'rendimiento'; 
                 
                 if (!window.appState.cachedDocs) window.appState.cachedDocs = {};
@@ -888,6 +904,7 @@
         window.renderDashboard = () => {
             const activeWorkers = window.appState.dbWorkers.filter(w => w.status === 'activo' && w.role !== 'Administrador').length;
             const firstName = window.appState.currentUser.name.split(' ')[0];
+            const canSeeFinances = ['ADMIN', 'HR'].includes(window.appState.currentUser.systemRole);
 
             const now = new Date();
             const prevMonth = new Date(now.getFullYear(), now.getMonth() - 1);
@@ -926,16 +943,17 @@
             const sharedBdaysCount = nextBdayWorker ? upcomingBirthdays.filter(w => w.daysUntil === nextBdayWorker.daysUntil).length - 1 : 0;
             const monthNames = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 
-            const canSeeFinances = ['ADMIN', 'HR'].includes(window.appState.currentUser.systemRole);
-
             return `
             <div class="space-y-4 sm:space-y-6 max-w-7xl mx-auto pb-8">
                 <div class="bg-gradient-to-br from-[#542c1c] via-[#6b3c2a] to-[#7a4a35] -mx-3 sm:-mx-4 md:-mx-6 lg:-mx-8 -mt-3 sm:-mt-4 md:-mt-6 lg:-mt-8 pt-10 sm:pt-12 md:pt-14 pb-24 sm:pb-28 px-4 sm:px-6 md:px-10 rounded-b-[2rem] shadow-lg relative overflow-hidden">
                     <div class="absolute inset-0 opacity-[0.03] bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+PHBhdHRlcm4gaWQ9InAiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMiIgZmlsbD0iI2ZmZiIvPjwvcGF0dGVybj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI3ApIi8+PC9zdmc+')]"></div>
-                    <div class="relative z-10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                    <div class="relative z-10 flex flex-row justify-between items-center gap-3">
                         <div class="w-full min-w-0">
                             <h1 class="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight mb-1 truncate">Hola, ${firstName} 👋</h1>
                             <p class="text-[#cab2a2] text-xs sm:text-sm md:text-base font-medium truncate">Panel general de administración</p>
+                        </div>
+                        <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center p-2.5 shrink-0 shadow-[0_0_15px_rgba(0,0,0,0.1)]">
+                            <img src="https://www.image2url.com/r2/default/images/1790563425145-6bf6885c-554e-4d07-900c-35e85d92646d.png" alt="Logo LALY" class="w-full h-full object-contain filter drop-shadow-md">
                         </div>
                     </div>
                 </div>
@@ -1084,7 +1102,7 @@
             const isAdmin = window.appState.currentUser.systemRole === 'ADMIN';
             
             let html = `
-            <div class="max-w-7xl mx-auto pb-24 lg:pb-8">
+            <div class="flex flex-col max-w-7xl mx-auto pb-24 lg:pb-8">
                 <div class="bg-white p-4 sm:p-5 md:p-6 rounded-[2rem] card-shadow mb-4 sm:mb-6 border border-gray-100/50">
                     <div class="flex flex-col md:flex-row justify-between items-center gap-4">
                         <div class="w-full md:w-auto">
@@ -1633,6 +1651,12 @@
             amountInput.readOnly = true;
             amountInput.classList.add('bg-gray-100');
             amountInput.placeholder = "Selecciona un servicio primero";
+            
+            const otherConceptContainer = document.getElementById('other-concept-container');
+            if (otherConceptContainer) {
+                otherConceptContainer.classList.add('hidden');
+                document.getElementById('pay-other-concept').required = false;
+            }
 
             document.getElementById('payment-modal').classList.add('active');
         };
@@ -1663,7 +1687,7 @@
                 const sequenceDocId = `${yyyy}-${mm}`;
                 
                 const sequenceRef = doc(db, "payment_sequences", sequenceDocId);
-                const newPaymentRef = doc(collection(db, "payments")); // Generador de ID automático
+                const newPaymentRef = doc(collection(db, "payments")); 
 
                 await runTransaction(db, async (transaction) => {
                     const seqDoc = await transaction.get(sequenceRef);
@@ -1678,30 +1702,31 @@
 
                     let assignedNumber;
                     if (reusableSequences.length > 0) {
-                        // Reutilizar el número más pequeño disponible
                         reusableSequences.sort((a, b) => a - b);
                         assignedNumber = reusableSequences.shift();
                     } else {
-                        // Aumentar la secuencia general
                         lastSequence += 1;
                         assignedNumber = lastSequence;
                     }
 
-                    // Actualizar control de secuencia
                     transaction.set(sequenceRef, {
                         lastSequence: lastSequence,
                         reusableSequences: reusableSequences
                     }, { merge: true });
 
-                    // Formatear el consecutivo LALY-CC-YYYY-MM-XXXX
                     const paddedNum = String(assignedNumber).padStart(4, '0');
                     const paymentNumberString = `LALY-CC-${yyyy}-${mm}-${paddedNum}`;
+
+                    let finalService = document.getElementById('pay-service').value.trim();
+                    if (finalService === 'Otros conceptos') {
+                        finalService = `Otros conceptos: ${document.getElementById('pay-other-concept').value.trim()}`;
+                    }
 
                     const paymentData = {
                         workerId: w.id,
                         eventDate: document.getElementById('pay-event-date').value,
                         paymentDate: todayIso,
-                        service: document.getElementById('pay-service').value.trim(),
+                        service: finalService,
                         amount: parseInt(document.getElementById('pay-amount').value),
                         notes: document.getElementById('pay-notes').value.trim(),
                         bankName: w.bankName,
@@ -1711,7 +1736,6 @@
                         recordedBy: window.appState.currentUser.name,
                         timestamp: Date.now(),
                         
-                        // Campos del Consecutivo Atómico
                         paymentNumber: paymentNumberString,
                         sequenceYear: parseInt(yyyy),
                         sequenceMonth: mm,
@@ -1721,7 +1745,6 @@
                     transaction.set(newPaymentRef, paymentData);
                     return paymentData;
                 }).then((paymentData) => {
-                    // Actualizar estado local inmediatamente al terminar la transacción
                     window.appState.payments.push({dbId: newPaymentRef.id, ...paymentData});
                     localStorage.setItem('laly_payments', JSON.stringify(window.appState.payments));
                     
@@ -1878,7 +1901,6 @@
             doc.setTextColor(200, 178, 162); 
             doc.text("CONSTANCIA DE PAGO DIGITAL", 107.95, 32, { align: "center" });
 
-            // Mostrar número de constancia (Consecutivo)
             if (p.paymentNumber) {
                 doc.setFontSize(10);
                 doc.setFont("helvetica", "bold");
@@ -2075,7 +2097,6 @@
                     const sequenceRef = doc(db, "payment_sequences", sequenceDocId);
                     const paymentRef = doc(db, "payments", id);
 
-                    // Transacción para liberar el número de forma segura
                     await runTransaction(db, async (transaction) => {
                         const seqDoc = await transaction.get(sequenceRef);
                         let reusableSequences = [];
@@ -2093,11 +2114,9 @@
                         transaction.delete(paymentRef);
                     });
                 } else {
-                    // Fallback para registros antiguos que no tenían consecutivo atómico
                     await deleteDoc(doc(db, "payments", id));
                 }
 
-                // Borramos inmediatamente de la memoria local para todos
                 window.appState.payments = window.appState.payments.filter(x => x.dbId !== id);
                 localStorage.setItem('laly_payments', JSON.stringify(window.appState.payments));
                 
@@ -2228,7 +2247,7 @@
                 });
 
                 if(daysToCheck.length > 0) {
-                    daysToCheck.forEach(day => { const checkbox = document.querySelector(`.w-availability-day[value="${day}"]`); if(checkbox) checkbox.checked = true; });
+                    daysToCheck.forEach(day => { const checkbox = document.querySelector(`.w-availability-day[value="${day}"]`); if(checkbox) checked = true; });
                     window.updateAvailabilityUI();
                     setTimeout(() => {
                         textParts.forEach(part => {
