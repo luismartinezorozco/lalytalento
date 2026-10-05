@@ -9,13 +9,12 @@
     
     <link rel="icon" type="image/svg+xml" href="https://www.image2url.com/r2/default/images/1788374834690-45577bd2-1651-4ed7-ad3b-d8813e90ef11.svg">
     
-    <!-- Configuraciones PWA para iOS y Android (Icono de aplicación y pantalla completa) -->
-    <meta name="theme-color" content="#542c1c">
+    <!-- Configuraciones PWA para iOS y Android -->
+    <meta name="theme-color" content="#2d170e">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="LALY Talento">
     <link rel="apple-touch-icon" href="https://wsrv.nl/?url=https://www.image2url.com/r2/default/images/1788374834690-45577bd2-1651-4ed7-ad3b-d8813e90ef11.svg&output=png&w=180&h=180">
-    <link rel="manifest" href='data:application/manifest+json;charset=utf-8,%7B%22name%22%3A%22LALY%20Talento%22%2C%22short_name%22%3A%22LALY%20Talento%22%2C%22start_url%22%3A%22.%2F%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23542c1c%22%2C%22theme_color%22%3A%22%23542c1c%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22https%3A%2F%2Fwww.image2url.com%2Fr2%2Fdefault%2Fimages%2F1788374834690-45577bd2-1651-4ed7-ad3b-d8813e90ef11.svg%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%2C%22purpose%22%3A%22any%20maskable%22%7D%2C%7B%22src%22%3A%22https%3A%2F%2Fwsrv.nl%2F%3Furl%3Dhttps%3A%2F%2Fwww.image2url.com%2Fr2%2Fdefault%2Fimages%2F1788374834690-45577bd2-1651-4ed7-ad3b-d8813e90ef11.svg%26output%3Dpng%26w%3D512%26h%3D512%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fpng%22%7D%5D%7D'>
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>LALY TALENTO</title>
@@ -38,7 +37,14 @@
         .fade-in { opacity: 1; }
         .animate-in { opacity: 1; }
 
-        img { content-visibility: auto; }
+        /* Aceleración por hardware para eliminar parpadeos en imágenes */
+        img { 
+            -webkit-transform: translateZ(0); 
+            transform: translateZ(0); 
+            -webkit-backface-visibility: hidden; 
+            backface-visibility: hidden; 
+        }
+        
         .card-shadow { 
             box-shadow: 0 8px 30px rgb(0, 0, 0, 0.04), 0 1px 2px rgb(0, 0, 0, 0.02); 
             border: 1px solid rgba(243, 244, 246, 0.7); 
@@ -85,12 +91,7 @@
             background:
                 radial-gradient(55rem 32rem at 12% 8%, rgba(187, 116, 52, 0.16), transparent 55%),
                 radial-gradient(45rem 30rem at 92% 95%, rgba(187, 116, 52, 0.10), transparent 55%),
-                #542c1c;
-        }
-
-        #main-content [class*="bg-[#542c1c]"]:not(button) {
-            background: linear-gradient(135deg, #542c1c 0%, #6b3c2a 55%, #7a4a35 100%);
-            box-shadow: 0 14px 34px -14px rgba(84, 44, 28, 0.4);
+                #2d170e;
         }
 
         .modal-backdrop {
@@ -126,12 +127,12 @@
 <body class="overflow-hidden">
 
     <!-- LOGIN -->
-    <div id="login-screen" class="fixed inset-0 min-h-[100dvh] bg-[#542c1c] flex flex-col items-center justify-center p-4 md:p-6 fade-in z-[300] overflow-y-auto">
+    <div id="login-screen" class="fixed inset-0 min-h-[100dvh] flex flex-col items-center justify-center p-4 md:p-6 fade-in z-[300] overflow-y-auto">
         <div class="w-24 h-24 md:w-32 md:h-32 bg-white/10 backdrop-blur-md rounded-[2rem] flex items-center justify-center mb-6 md:mb-8 shadow-[0_0_40px_rgba(0,0,0,0.3)] border border-white/20 p-4">
            <img src="https://www.image2url.com/r2/default/images/1788374834690-45577bd2-1651-4ed7-ad3b-d8813e90ef11.svg" alt="LALY Logo" class="w-full h-full object-contain filter drop-shadow-lg">
         </div>
         <h1 class="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-1 sm:mb-2 tracking-tight text-center">LALY TALENTO</h1>
-        <p class="text-[#cab2a2] font-medium mb-6 sm:mb-8 text-center max-w-sm text-xs sm:text-sm md:text-base">Sistema de gestión de talento y rendimiento.</p>
+        <p class="text-[#cab2a2] font-medium mb-6 sm:mb-8 text-center max-w-sm text-xs sm:text-sm md:text-base">Sistema de gestión corporativa.</p>
         
         <div class="bg-white rounded-2xl sm:rounded-[2rem] p-4 sm:p-6 md:p-8 w-full max-w-sm shadow-[0_25px_60px_-15px_rgba(0,0,0,0.4)] border border-white/20">
           <h2 class="text-lg sm:text-xl md:text-2xl font-black text-[#542c1c] mb-4 sm:mb-6 text-center">¿Quién eres?</h2>
@@ -172,10 +173,10 @@
     </div>
 
     <!-- MAIN APP LAYOUT -->
-    <div id="app-layout" class="hidden flex h-[100dvh] w-full bg-[#542c1c] overflow-hidden relative">
+    <div id="app-layout" class="hidden flex h-[100dvh] w-full bg-[#2d170e] overflow-hidden relative">
         
         <!-- SIDEBAR (PC) -->
-        <div class="hidden lg:flex flex-col w-64 xl:w-72 bg-[#542c1c] text-white pt-6 md:pt-8 pb-4 md:pb-6 px-4 md:px-6 border-r border-[#7a4a35] relative z-20 shrink-0">
+        <div class="hidden lg:flex flex-col w-64 xl:w-72 bg-[#2d170e] text-white pt-6 md:pt-8 pb-4 md:pb-6 px-4 md:px-6 border-r border-[#bb7434]/20 relative z-20 shrink-0">
             <div class="mb-8 md:mb-10 flex items-center gap-3">
                 <div class="w-10 h-10 bg-[#bb7434] rounded-xl flex items-center justify-center text-white shadow-lg shadow-[#bb7434]/25 shrink-0">
                     <i data-lucide="briefcase" class="w-6 h-6"></i>
@@ -204,7 +205,7 @@
 
         <!-- MAIN CONTENT AREA -->
         <div class="flex-1 flex flex-col h-[100dvh] bg-[#f3ebe3] lg:rounded-l-[2.5rem] overflow-hidden relative shadow-2xl lg:border-l lg:border-white/10">
-            <div id="main-content" class="flex-1 overflow-y-auto p-3 sm:p-4 md:p-6 lg:p-8 relative pb-36 sm:pb-40 md:pb-40 lg:pb-12 hide-scrollbar">
+            <div id="main-content" class="flex-1 overflow-y-auto p-0 md:p-0 lg:p-0 relative pb-36 sm:pb-40 md:pb-40 lg:pb-12 hide-scrollbar">
                 <!-- Vistas dinámicas inyectadas aquí -->
             </div>
 
@@ -230,7 +231,7 @@
                     
                     <div class="flex flex-col items-center mb-3 sm:mb-4">
                         <div class="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gray-200 border-4 border-white shadow-md flex items-center justify-center overflow-hidden mb-2">
-                            <img id="w-photo-preview" src="" loading="lazy" decoding="async" class="w-full h-full object-cover hidden">
+                            <img id="w-photo-preview" src="" class="w-full h-full object-cover hidden">
                             <i id="w-photo-icon" data-lucide="camera" class="w-5 h-5 sm:w-6 sm:h-6 text-gray-400"></i>
                         </div>
                         <label class="cursor-pointer text-[#542c1c] text-xs font-bold py-1.5 px-2.5 sm:px-3 rounded-full bg-white shadow-sm border border-gray-200 hover:bg-gray-50 transition-all active:scale-95">
@@ -367,7 +368,7 @@
         </div>
     </div>
 
-    <!-- MODAL FORMULARIO DE PAGOS (CONSTANCIAS SIMPLIFICADAS CON RECARGOS) -->
+    <!-- MODAL FORMULARIO DE PAGOS -->
     <div id="payment-modal" class="modal-backdrop z-[1050]">
         <div class="modal-content w-full sm:max-w-sm md:max-w-md">
             <div class="flex justify-between items-center p-4 sm:p-6 border-b border-gray-100/80 shrink-0 bg-white/70 backdrop-blur-xl">
@@ -380,18 +381,14 @@
                 <form id="payment-form" onsubmit="window.savePayment(event)" class="space-y-4">
                     <div class="bg-blue-50/50 border border-blue-100 p-3 rounded-xl mb-4 text-xs font-medium text-blue-800 flex gap-2">
                         <i data-lucide="info" class="w-4 h-4 shrink-0 text-blue-500"></i>
-                        <span>Tus datos bancarios actuales se anexarán automáticamente a esta constancia.</span>
+                        <span>Tus datos bancarios actuales se anexarán automáticamente a esta constancia. La fecha de pago se asume al día de hoy.</span>
                     </div>
 
                     <div class="grid grid-cols-1 gap-3 sm:gap-4">
                         <div>
-                            <label class="block text-[10px] sm:text-xs font-bold text-gray-500 mb-1.5 uppercase tracking-wide">Fecha del Evento</label>
-                            <input required type="date" id="pay-event-date" class="w-full border border-gray-200 bg-white rounded-xl p-3 text-sm focus:border-[#bb7434] outline-none shadow-sm">
-                        </div>
-                        <div>
                             <label class="block text-[10px] sm:text-xs font-bold text-gray-500 mb-1.5 uppercase tracking-wide">Servicio Prestado</label>
                             <div class="relative">
-                                <select required id="pay-service" onchange="window.handleServiceChange(this)" class="w-full border border-gray-200 bg-white rounded-xl p-3 pr-10 text-sm font-semibold text-gray-800 focus:border-[#bb7434] outline-none shadow-sm appearance-none cursor-pointer">
+                                <select required id="pay-service" onchange="window.handleServiceChange(this)" class="w-full border border-gray-200 bg-white rounded-xl p-3 pr-10 text-sm font-semibold text-gray-800 focus:border-[#bb7434] outline-none shadow-sm appearance-none cursor-pointer box-border">
                                     <option value="" disabled selected>Selecciona un servicio...</option>
                                     <option value="Logística">Logística</option>
                                     <option value="Personaje botarga / princesa">Personaje botarga / princesa</option>
@@ -406,35 +403,34 @@
                             </div>
                             <div id="other-concept-container" class="hidden mt-3">
                                 <label class="block text-[10px] sm:text-xs font-bold text-gray-500 mb-1.5 uppercase tracking-wide">Especificar concepto o rol</label>
-                                <input type="text" id="pay-other-concept" placeholder="¿Qué labor realizaste?" class="w-full border border-gray-200 bg-white rounded-xl p-3 text-sm focus:border-[#bb7434] outline-none shadow-sm transition-colors">
+                                <input type="text" id="pay-other-concept" placeholder="¿Qué labor realizaste?" class="w-full border border-gray-200 bg-white rounded-xl p-3 text-sm focus:border-[#bb7434] outline-none shadow-sm transition-colors box-border">
                             </div>
                         </div>
-                        <div>
-                            <label class="block text-[10px] sm:text-xs font-bold text-gray-500 mb-1.5 uppercase tracking-wide">Valor del Servicio (COP)</label>
-                            <input required type="number" id="pay-amount" placeholder="Selecciona un servicio primero" class="w-full border border-gray-200 bg-white rounded-xl p-3 text-sm font-black text-gray-800 focus:border-[#bb7434] outline-none shadow-sm transition-colors" readonly>
-                        </div>
-
-                        <!-- NUEVO: RECARGOS -->
+                        
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 p-3 bg-gray-100/50 rounded-xl border border-gray-200/60">
+                            <div>
+                                <label class="block text-[10px] sm:text-xs font-bold text-gray-500 mb-1.5 uppercase tracking-wide">Valor del Servicio</label>
+                                <input required type="number" id="pay-amount" placeholder="Valor" class="w-full border border-gray-200 bg-white rounded-xl p-3 text-sm font-black text-gray-800 focus:border-[#bb7434] outline-none shadow-sm transition-colors box-border" readonly>
+                            </div>
                             <div>
                                 <label class="block text-[10px] sm:text-xs font-bold text-gray-500 mb-1.5 uppercase tracking-wide">¿Recibiste recargos?</label>
                                 <div class="relative">
-                                    <select id="pay-has-surcharge" onchange="window.handleSurchargeChange(this)" class="w-full border border-gray-200 bg-white rounded-xl p-3 pr-10 text-sm font-semibold text-gray-800 focus:border-[#bb7434] outline-none shadow-sm appearance-none cursor-pointer">
+                                    <select id="pay-has-surcharge" onchange="window.handleSurchargeChange(this)" class="w-full border border-gray-200 bg-white rounded-xl p-3 pr-10 text-sm font-semibold text-gray-800 focus:border-[#bb7434] outline-none shadow-sm appearance-none cursor-pointer box-border">
                                         <option value="no" selected>No</option>
                                         <option value="si">Sí</option>
                                     </select>
                                     <i data-lucide="chevron-down" class="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none"></i>
                                 </div>
                             </div>
-                            <div id="surcharge-container" class="hidden">
+                            <div id="surcharge-container" class="hidden sm:col-span-2 mt-1 border-t border-gray-200/50 pt-3">
                                 <label class="block text-[10px] sm:text-xs font-bold text-gray-500 mb-1.5 uppercase tracking-wide">Valor del recargo (COP)</label>
-                                <input type="number" id="pay-surcharge" placeholder="Ingresa el valor..." class="w-full border border-gray-200 bg-white rounded-xl p-3 text-sm font-black text-gray-800 focus:border-[#bb7434] outline-none shadow-sm transition-colors">
+                                <input type="number" id="pay-surcharge" placeholder="Ingresa el valor del recargo extra..." class="w-full border border-gray-200 bg-white rounded-xl p-3 text-sm font-black text-[#bb7434] focus:border-[#bb7434] outline-none shadow-sm transition-colors box-border">
                             </div>
                         </div>
-
-                        <div>
+                        
+                        <div class="mt-1">
                             <label class="block text-[10px] sm:text-xs font-bold text-gray-500 mb-1.5 uppercase tracking-wide">Observaciones (Opcional)</label>
-                            <textarea id="pay-notes" rows="2" class="w-full border border-gray-200 bg-white rounded-xl p-3 text-sm focus:border-[#bb7434] outline-none shadow-sm resize-none"></textarea>
+                            <textarea id="pay-notes" rows="2" placeholder="Agrega notas, detalles de transporte, etc." class="w-full border border-gray-200 bg-white rounded-xl p-3 text-sm focus:border-[#bb7434] outline-none shadow-sm transition-colors box-border resize-none"></textarea>
                         </div>
                     </div>
 
@@ -538,7 +534,6 @@
         };
 
         window.evaluationCriteria = [
-            // POSITIVOS
             { reason: "Llegar puntualmente al evento", amount: 5, type: "pos" },
             { reason: "Foto de evidencia al llegar", amount: 5, type: "pos" },
             { reason: "Foto de evidencia al finalizar", amount: 5, type: "pos" },
@@ -547,7 +542,6 @@
             { reason: "Realizar video de la utilería que entra y sale de la casa", amount: 5, type: "pos" },
             { reason: "Recibir felicitación o reconocimiento especial de un cliente", amount: 10, type: "pos" },
             { reason: "Mostrar disposición para apoyar al equipo", amount: 5, type: "pos" },
-            // NEGATIVOS
             { reason: "Llegar tarde sin justificación", amount: 10, type: "neg" },
             { reason: "No enviar foto de llegada", amount: 5, type: "neg" },
             { reason: "No enviar foto de finalización", amount: 5, type: "neg" },
@@ -667,6 +661,15 @@
             }, 3000);
         };
 
+        window.copyToClipboard = (txt) => { navigator.clipboard.writeText(txt); window.showToast('Cuenta copiada'); };
+        
+        window.copyWorkerData = (e, name, doc) => {
+            e.stopPropagation();
+            const textToCopy = `${name} - ${doc}`;
+            navigator.clipboard.writeText(textToCopy);
+            window.showToast('Datos copiados: ' + name);
+        };
+
         window.onload = async () => {
             lucide.createIcons();
             try { await signInAnonymously(auth); checkSession(); } 
@@ -722,10 +725,10 @@
             }
         }
 
-        function showSkeletonDashboard() { return `<div class="space-y-6"><div class="bg-gradient-to-r from-[#542c1c] to-[#146459] -mx-6 md:-mx-8 -mt-6 md:-mt-8 pt-12 pb-10 px-6 md:px-10 rounded-b-[2rem]"><div class="max-w-5xl mx-auto"><div class="skeleton-base h-10 mb-3" style="width: 200px;"></div><div class="skeleton-base h-6 mb-8" style="width: 150px;"></div></div></div></div>`; }
+        function showSkeletonDashboard() { return `<div class="space-y-6"><div class="bg-[#2d170e] -mx-6 md:-mx-8 -mt-6 md:-mt-8 pt-12 pb-10 px-6 md:px-10 rounded-b-[2rem]"><div class="max-w-5xl mx-auto"><div class="skeleton-base h-10 mb-3" style="width: 200px;"></div><div class="skeleton-base h-6 mb-8" style="width: 150px;"></div></div></div></div>`; }
         function showSkeletonDirectory() { return `<div class="space-y-6"><div class="skeleton-base h-10 w-1/3 mb-6"></div><div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">${Array(6).fill(0).map(() => `<div class="skeleton-card"><div class="skeleton-base h-20"></div></div>`).join('')}</div></div>`; }
         function showSkeletonRanking() { return `<div class="space-y-6"><div class="skeleton-base h-10 w-1/3 mb-6"></div><div class="space-y-3">${Array(5).fill(0).map(() => `<div class="skeleton-card h-16"></div>`).join('')}</div></div>`; }
-        function showSkeletonProfile() { return `<div class="space-y-6"><div class="bg-white px-5 md:px-10 pt-8 pb-6 rounded-3xl md:mt-2"><div class="flex gap-4 md:gap-6"><div class="skeleton-base w-20 h-20 md:w-28 md:h-28 rounded-3xl"></div><div class="flex-1"><div class="skeleton-base h-8 mb-2 w-2/3"></div><div class="skeleton-base h-4 w-1/2"></div></div></div></div></div>`; }
+        function showSkeletonProfile() { return `<div class="space-y-6"><div class="bg-[#2d170e] px-5 md:px-10 pt-8 pb-6 rounded-3xl md:mt-2"><div class="flex gap-4 md:gap-6"><div class="skeleton-base w-20 h-20 md:w-28 md:h-28 rounded-3xl"></div><div class="flex-1"><div class="skeleton-base h-8 mb-2 w-2/3"></div><div class="skeleton-base h-4 w-1/2"></div></div></div></div></div>`; }
 
         function performLoginUIFast() {
             document.getElementById('login-screen').classList.add('hidden');
@@ -733,7 +736,7 @@
             const user = window.appState.currentUser;
             document.getElementById('user-name').innerText = user.name;
             const photoEl = document.getElementById('user-avatar');
-            if(user.photo) photoEl.innerHTML = `<img src="${user.photo}" loading="lazy" decoding="async" class="w-full h-full object-cover">`;
+            if(user.photo) photoEl.innerHTML = `<img src="${user.photo}" class="w-full h-full object-cover">`;
             else photoEl.innerText = window.getInitials(user.name);
             
             document.getElementById('user-role').innerText = user.role;
@@ -851,6 +854,7 @@
             window.renderNav();
             
             const main = document.getElementById('main-content');
+            main.className = "flex-1 overflow-y-auto relative hide-scrollbar " + (viewName === 'dashboard' || viewName === 'profile' ? "p-0" : "p-3 sm:p-4 md:p-6 lg:p-8 pb-36 sm:pb-40 md:pb-40 lg:pb-12");
             
             if (viewName === 'dashboard') { main.innerHTML = window.renderDashboard(); lucide.createIcons(); }
             if (viewName === 'directory') {
@@ -977,21 +981,30 @@
             const monthNames = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 
             return `
-            <div class="space-y-4 sm:space-y-6 max-w-7xl mx-auto pb-8">
-                <div class="bg-gradient-to-br from-[#542c1c] via-[#6b3c2a] to-[#7a4a35] -mx-3 sm:-mx-4 md:-mx-6 lg:-mx-8 -mt-3 sm:-mt-4 md:-mt-6 lg:-mt-8 pt-10 sm:pt-12 md:pt-14 pb-24 sm:pb-28 px-4 sm:px-6 md:px-10 rounded-b-[2rem] shadow-lg relative overflow-hidden">
-                    <div class="absolute inset-0 opacity-[0.03] bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+PHBhdHRlcm4gaWQ9InAiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMiIgZmlsbD0iI2ZmZiIvPjwvcGF0dGVybj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI3ApIi8+PC9zdmc+')]"></div>
-                    <div class="relative z-10 flex flex-row justify-between items-center gap-3">
+            <div class="space-y-4 sm:space-y-6 max-w-7xl mx-auto pb-36 sm:pb-40 md:pb-40 lg:pb-12">
+                <!-- DISEÑO CORPORATIVO SAAS ULTRA PREMIUM -->
+                <div class="bg-gradient-to-br from-[#1a0d08] via-[#2d170e] to-[#402012] pt-10 sm:pt-12 md:pt-14 pb-24 sm:pb-28 px-4 sm:px-6 md:px-10 lg:rounded-bl-[2.5rem] relative overflow-hidden shadow-2xl border-b border-[#bb7434]/30 z-0">
+                    
+                    <!-- Textura de Puntos (Dot Grid) -->
+                    <div class="absolute inset-0 opacity-[0.05]" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 24px 24px;"></div>
+                    
+                    <!-- Foco de luz volumétrica indirecta -->
+                    <div class="absolute -right-24 -top-24 w-[500px] h-[500px] bg-[#bb7434] rounded-full mix-blend-screen filter blur-[120px] opacity-20 pointer-events-none"></div>
+                    <div class="absolute -left-24 -bottom-24 w-[400px] h-[400px] bg-[#bb7434] rounded-full mix-blend-screen filter blur-[100px] opacity-[0.15] pointer-events-none"></div>
+
+                    <!-- Contenedor Principal (Glassmorphism Frosted Glass) -->
+                    <div class="relative z-10 bg-white/10 backdrop-blur-2xl border border-white/20 p-5 sm:p-6 md:p-8 rounded-[2rem] shadow-[0_8px_30px_rgba(0,0,0,0.12)] flex flex-row justify-between items-center gap-4 mt-4 sm:mt-6">
                         <div class="w-full min-w-0">
-                            <h1 class="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight mb-1 truncate">Hola, ${firstName} 👋</h1>
-                            <p class="text-[#cab2a2] text-xs sm:text-sm md:text-base font-medium truncate">Panel general de administración</p>
+                            <p class="text-[#cab2a2] text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] mb-1.5 drop-shadow-sm">Panel de Control</p>
+                            <h1 class="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight truncate drop-shadow-md">Bienvenido, ${firstName}</h1>
                         </div>
-                        <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center p-2.5 shrink-0 shadow-[0_0_15px_rgba(0,0,0,0.1)]">
-                            <img src="https://www.image2url.com/r2/default/images/1790563425145-6bf6885c-554e-4d07-900c-35e85d92646d.png" alt="Logo LALY" class="w-full h-full object-contain filter drop-shadow-md">
+                        <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-b from-white/20 to-white/5 backdrop-blur-md border border-white/30 flex items-center justify-center p-2.5 shrink-0 shadow-[0_0_20px_rgba(0,0,0,0.2)] hover:scale-105 transition-transform duration-500">
+                            <img src="https://www.image2url.com/r2/default/images/1790563425145-6bf6885c-554e-4d07-900c-35e85d92646d.png" alt="Logo LALY" class="w-full h-full object-contain filter drop-shadow-lg opacity-95">
                         </div>
                     </div>
                 </div>
 
-                <div class="-mt-16 sm:-mt-20 relative z-20 px-0 grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+                <div class="px-4 sm:px-6 md:px-10 -mt-16 sm:-mt-20 relative z-20 grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
                     <div class="bg-white p-4 sm:p-5 rounded-2xl sm:rounded-[1.5rem] card-shadow flex items-center gap-3 sm:gap-4 group border border-gray-100 hover:border-[#bb7434]/30 transition-all">
                         <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-orange-50 text-[#bb7434] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform shadow-inner border border-orange-100/50"><i data-lucide="users" class="w-6 h-6 sm:w-7 sm:h-7"></i></div>
                         <div class="flex-1 min-w-0">
@@ -1010,7 +1023,7 @@
                             <p class="text-[10px] sm:text-[11px] font-medium text-white/80 truncate mt-0.5">${topWorkerPrevPts} Puntos alcanzados</p>
                         </div>
                         ${topWorkerPrev.photo ? 
-                            `<img src="${topWorkerPrev.photo}" loading="lazy" decoding="async" class="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover border-2 border-white/30 shrink-0 z-10 shadow-md">` : 
+                            `<img src="${topWorkerPrev.photo}" class="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover border-2 border-white/30 shrink-0 z-10 shadow-md">` : 
                             `<div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/20 text-white font-black text-xs sm:text-sm flex items-center justify-center shrink-0 z-10 shadow-md border border-white/30">${window.getInitials(topWorkerPrev.name)}</div>`
                         }
                     </div>` : ''}
@@ -1023,19 +1036,19 @@
                             <p class="text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-pink-500 mb-0.5 truncate">Próximo Cumpleaños</p>
                             <h3 class="text-sm sm:text-base font-black text-gray-800 truncate">${nextBdayWorker.name} ${sharedBdaysCount > 0 ? `<span class="text-[9px] sm:text-[10px] font-bold text-gray-400">y ${sharedBdaysCount} más</span>` : ''}</h3>
                             <p class="text-[10px] sm:text-[11px] font-bold text-gray-500 truncate mt-0.5">
-                                ${nextBdayWorker.daysUntil === 0 ? '<span class="text-pink-500 font-black animate-pulse">¡Es hoy! 🎉</span>' : 
-                                  nextBdayWorker.daysUntil === 1 ? '<span class="text-pink-400 font-black">Mañana 🎈</span>' : 
+                                ${nextBdayWorker.daysUntil === 0 ? '<span class="text-pink-500 font-black animate-pulse">¡Es hoy!</span>' : 
+                                  nextBdayWorker.daysUntil === 1 ? '<span class="text-pink-400 font-black">Mañana</span>' : 
                                   `En <span class="text-pink-500">${nextBdayWorker.daysUntil}</span> días (${nextBdayWorker.bDay} de ${monthNames[nextBdayWorker.bMonth - 1]})`}
                             </p>
                         </div>
                         ${nextBdayWorker.photo ? 
-                            `<img src="${nextBdayWorker.photo}" loading="lazy" decoding="async" class="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover border-2 border-pink-100 shrink-0 z-10 shadow-sm">` : 
+                            `<img src="${nextBdayWorker.photo}" class="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover border-2 border-pink-100 shrink-0 z-10 shadow-sm">` : 
                             `<div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-pink-100 text-pink-600 font-black text-xs sm:text-sm flex items-center justify-center shrink-0 z-10 shadow-sm border border-pink-200">${window.getInitials(nextBdayWorker.name)}</div>`
                         }
                     </div>` : ''}
                 </div>
 
-                <div class="mt-2 sm:mt-4">
+                <div class="px-4 sm:px-6 md:px-10 mt-2 sm:mt-4">
                     <h3 class="text-[10px] sm:text-xs font-black text-gray-400 uppercase tracking-widest mb-3 px-1 sm:px-2">Accesos Rápidos</h3>
                     <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
                         <div onclick="setView('directory')" class="bg-white p-4 sm:p-5 rounded-2xl card-shadow flex items-center gap-3 sm:gap-4 cursor-pointer hover:border-[#bb7434]/40 hover:shadow-lg transition-all group border border-gray-100">
@@ -1071,7 +1084,7 @@
                 return `
                 <div class="bg-white p-4 rounded-2xl card-shadow border border-gray-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-3 hover:border-[#bb7434]/30 transition-colors">
                     <div class="flex-1 min-w-0">
-                        <p class="text-[10px] text-gray-500 font-bold tracking-widest uppercase mb-0.5">${p.paymentNumber || 'SIN CONSECUTIVO'}</p>
+                        <p class="text-[10px] text-[#bb7434] font-black tracking-widest uppercase mb-0.5">${p.paymentNumber || 'SIN CONSECUTIVO'}</p>
                         <h4 class="font-black text-gray-800 text-sm sm:text-base truncate">${window.escapeHtml(w.name)}</h4>
                         <p class="text-xs text-gray-500 font-medium truncate mt-0.5"><i data-lucide="check-circle-2" class="w-3.5 h-3.5 inline text-[#bb7434] mr-1"></i>${window.escapeHtml(p.service)}</p>
                         <p class="text-[10px] text-gray-400 mt-1 uppercase tracking-wider font-bold">Fecha Evento: ${p.eventDate}</p>
@@ -1106,7 +1119,7 @@
                 <div class="bg-gradient-to-br from-green-600 via-emerald-600 to-teal-700 p-5 sm:p-6 md:p-8 rounded-[2rem] text-white flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 shadow-xl relative overflow-hidden">
                     <div class="absolute -right-6 -bottom-6 opacity-10 pointer-events-none"><i data-lucide="banknote" class="w-48 h-48"></i></div>
                     <div class="relative z-10 flex-1">
-                        <p class="text-[10px] sm:text-xs font-black uppercase tracking-widest opacity-80 mb-1 flex items-center gap-1.5"><i data-lucide="calculator" class="w-4 h-4"></i> Total a Pagar (${monthStr})</p>
+                        <p class="text-[10px] sm:text-xs font-black uppercase tracking-widest opacity-80 mb-1 flex items-center gap-1.5"><i data-lucide="calculator" class="w-4 h-4"></i> Total Pagado (${monthStr})</p>
                         <p class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight drop-shadow-md">${new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(totalAmount)}</p>
                     </div>
                     <button onclick="window.downloadMonthlyZip('${monthStr}')" class="w-full sm:w-auto bg-white text-green-700 px-6 py-3.5 rounded-2xl font-black text-sm hover:bg-gray-50 active:scale-95 transition-all shadow-lg flex items-center justify-center gap-2 shrink-0 relative z-10">
@@ -1135,7 +1148,7 @@
             const isAdmin = window.appState.currentUser.systemRole === 'ADMIN';
             
             let html = `
-            <div class="flex flex-col max-w-7xl mx-auto pb-24 lg:pb-8">
+            <div class="flex flex-col max-w-7xl mx-auto">
                 <div class="bg-white p-4 sm:p-5 md:p-6 rounded-[2rem] card-shadow mb-4 sm:mb-6 border border-gray-100/50">
                     <div class="flex flex-col md:flex-row justify-between items-center gap-4">
                         <div class="w-full md:w-auto">
@@ -1156,12 +1169,12 @@
                     </div>
                 </div>
                 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4" id="directory-grid">`;
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 pb-20" id="directory-grid">`;
 
             window.appState.dbWorkers.forEach(w => {
                 if (w.role === 'Administrador') return;
                 const isInactive = w.status === 'inactivo';
-                const photoHtml = w.photo ? `<img src="${w.photo}" loading="lazy" decoding="async" class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl object-cover shrink-0">` : `<div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gray-100 text-gray-400 font-black text-lg sm:text-xl flex items-center justify-center shrink-0 border border-gray-200 shadow-inner">${window.getInitials(w.name)}</div>`;
+                const photoHtml = w.photo ? `<img src="${w.photo}" class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl object-cover shrink-0">` : `<div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gray-100 text-gray-400 font-black text-lg sm:text-xl flex items-center justify-center shrink-0 border border-gray-200 shadow-inner">${window.getInitials(w.name)}</div>`;
                 
                 let firstSpecHtml = '';
                 if(w.specialties) {
@@ -1169,7 +1182,11 @@
                     if(firstSpec) firstSpecHtml = `<span class="bg-indigo-50 text-indigo-600 text-[9px] sm:text-[10px] font-black px-2 py-0.5 rounded-lg flex items-center gap-1 shrink-0 border border-indigo-100/50"><i data-lucide="sparkles" class="w-2.5 h-2.5"></i> ${firstSpec}</span>`;
                 }
                 const cityHtml = w.city ? `<span class="bg-gray-50 text-gray-500 text-[9px] sm:text-[10px] font-bold px-2 py-0.5 rounded-lg truncate border border-gray-100"><i data-lucide="map-pin" class="w-2.5 h-2.5 inline mr-1"></i>${w.city}</span>` : '';
-                const searchData = `${w.name} ${w.role} ${w.document || ''} ${w.specialties || ''}`.toLowerCase();
+                
+                // Generar Nombre Completo (Nombres + Apellidos)
+                const fullName = `${w.name} ${w.lastname || ''}`.trim();
+                const safeNameJS = fullName.replace(/'/g, "\\'"); // Escapar comillas para la función JS
+                const searchData = `${fullName} ${w.role} ${w.document || ''} ${w.specialties || ''}`.toLowerCase();
 
                 html += `
                 <div onclick="viewWorkerProfile('${w.id}')" data-search="${searchData}" class="directory-card bg-white p-3.5 sm:p-4 rounded-[1.5rem] card-shadow cursor-pointer hover:border-[#bb7434]/40 hover:shadow-xl transition-all border border-gray-100 flex items-center gap-3.5 sm:gap-4 relative overflow-hidden group ${isInactive?'opacity-60 grayscale-[0.2] hover:grayscale-0':''}">
@@ -1179,11 +1196,14 @@
                         ${isInactive ? `<div class="absolute -bottom-1 -right-1 w-4 h-4 bg-red-400 border-[3px] border-white rounded-full shadow-sm"></div>` : `<div class="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 border-[3px] border-white rounded-full shadow-sm"></div>`}
                     </div>
                     <div class="flex-1 min-w-0">
-                        <h4 class="font-black text-gray-800 text-sm sm:text-base leading-tight truncate mb-0.5 group-hover:text-[#bb7434] transition-colors">${w.name}</h4>
+                        <h4 class="font-black text-gray-800 text-sm sm:text-base leading-tight truncate mb-0.5 group-hover:text-[#bb7434] transition-colors">${window.escapeHtml(fullName)}</h4>
                         <p class="text-[10px] sm:text-[11px] font-black text-gray-400 uppercase tracking-wider truncate mb-2">${w.role}</p>
                         <div class="flex items-center gap-1.5 overflow-hidden">${firstSpecHtml}${cityHtml}</div>
                     </div>
-                    <div class="shrink-0 text-gray-200 group-hover:text-[#bb7434] transition-colors pr-1"><i data-lucide="chevron-right" class="w-5 h-5"></i></div>
+                    <div class="flex items-center gap-2 shrink-0 z-10">
+                        ${canEdit ? `<button type="button" onclick="window.copyWorkerData(event, '${safeNameJS}', '${w.document || ''}')" class="w-8 h-8 rounded-xl bg-gray-50 text-gray-400 hover:text-[#bb7434] hover:bg-orange-50 border border-gray-200 flex items-center justify-center transition-all active:scale-90 shadow-sm" title="Copiar Datos"><i data-lucide="copy" class="w-4 h-4"></i></button>` : ''}
+                        <div class="text-gray-200 group-hover:text-[#bb7434] transition-colors pr-1"><i data-lucide="chevron-right" class="w-5 h-5"></i></div>
+                    </div>
                 </div>`;
             });
             html += `</div></div>`;
@@ -1245,7 +1265,7 @@
                     avatarRing = "ring-4 ring-orange-400/30";
                 }
 
-                const photoHtml = w.photo ? `<img src="${w.photo}" loading="lazy" decoding="async" class="w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl object-cover shrink-0 ${avatarRing}">` : `<div class="w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-gray-100 text-gray-400 font-black text-lg sm:text-xl flex items-center justify-center shrink-0 border border-gray-200 ${avatarRing}">${window.getInitials(w.name)}</div>`;
+                const photoHtml = w.photo ? `<img src="${w.photo}" class="w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl object-cover shrink-0 ${avatarRing}">` : `<div class="w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-gray-100 text-gray-400 font-black text-lg sm:text-xl flex items-center justify-center shrink-0 border border-gray-200 ${avatarRing}">${window.getInitials(w.name)}</div>`;
 
                 html += `
                 <div onclick="viewWorkerProfile('${w.id}')" class="p-3 sm:p-4 rounded-2xl sm:rounded-[1.5rem] card-shadow border ${cardClass} flex items-center justify-between cursor-pointer hover:-translate-y-0.5 transition-all gap-2 sm:gap-3 relative group">
@@ -1313,7 +1333,7 @@
                             <div class="relative">
                                 <i data-lucide="users" class="absolute left-4 top-1/2 transform -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-gray-400"></i>
                                 <select id="msg-target" class="w-full pl-11 pr-4 py-3 sm:py-3.5 rounded-2xl border border-gray-200 bg-gray-50 text-xs sm:text-sm font-black text-[#542c1c] focus:outline-none focus:ring-2 focus:ring-[#bb7434]/20 focus:border-[#bb7434] transition-all cursor-pointer shadow-sm appearance-none">
-                                    <option value="">📢 Todos (Aviso General)</option>
+                                    <option value="">Todos (Aviso General)</option>
                                     ${workersOptions}
                                 </select>
                                 <i data-lucide="chevron-down" class="absolute right-4 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none"></i>
@@ -1360,7 +1380,7 @@
                 <div class="flex items-center gap-3 py-3 border-b border-gray-50 last:border-0 hover:bg-gray-50/50 px-3 rounded-xl transition-colors">
                     <div class="flex-1 min-w-0">
                         <p class="font-bold text-sm text-gray-800 break-words">${p.reason}</p>
-                        <p class="text-[11px] text-gray-400 mt-0.5 truncate flex items-center gap-1"><i data-lucide="calendar-clock" class="w-3 h-3"></i> ${new Date(p.timestamp).toLocaleDateString()} · Eval: ${p.evaluator}</p>
+                        <p class="text-[11px] text-gray-400 mt-0.5 truncate flex items-center gap-1"><i data-lucide="calendar-clock" class="w-3 h-3"></i> ${new Date(p.timestamp).toLocaleDateString()} &nbsp;&bull;&nbsp; Eval: ${p.evaluator}</p>
                     </div>
                     <span class="font-black text-sm px-2.5 py-1.5 rounded-lg ${color} shadow-sm shrink-0">${sign}${p.amount}</span>
                 </div>`;
@@ -1448,39 +1468,52 @@
             const negOptions = window.evaluationCriteria.map((c, index) => c.type === 'neg' ? `<option value="${index}">${c.reason} (-${c.amount})</option>` : '').join('');
             
             return `
-            <div class="max-w-4xl mx-auto pb-10">
-                <div class="bg-gradient-to-br from-[#542c1c] via-[#6b3c2a] to-[#bb7434] px-4 sm:px-6 md:px-10 pt-8 sm:pt-10 pb-20 sm:pb-24 rounded-b-[2.5rem] md:rounded-3xl md:mt-2 shadow-lg relative z-0 overflow-hidden">
-                    <div class="absolute inset-0 opacity-[0.03] bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+PHBhdHRlcm4gaWQ9InAiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMiIgZmlsbD0iI2ZmZiIvPjwvcGF0dGVybj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI3ApIi8+PC9zdmc+')]"></div>
+            <div class="max-w-4xl mx-auto pb-36 sm:pb-40 lg:pb-12">
+                <!-- DISEÑO CORPORATIVO SAAS ULTRA PREMIUM EN PERFIL -->
+                <div class="bg-gradient-to-br from-[#1a0d08] via-[#2d170e] to-[#402012] px-4 sm:px-6 md:px-10 pt-8 sm:pt-10 pb-28 sm:pb-32 md:pb-36 lg:rounded-bl-[2.5rem] md:rounded-3xl md:mt-2 shadow-2xl relative overflow-hidden z-0 border-b border-[#bb7434]/30">
                     
-                    ${role !== 'WORKER' ? `<button onclick="setView('directory')" class="text-white/80 hover:text-white mb-4 sm:mb-6 font-bold text-xs sm:text-sm flex items-center gap-2 transition-all active:scale-95 relative z-10"><i data-lucide="chevron-left" class="w-4 h-4 sm:w-5 sm:h-5"></i> Volver</button>` : `<div class="mb-4 sm:mb-6 relative z-10"><p class="text-white/70 text-xs font-black uppercase tracking-widest flex items-center gap-2"><i data-lucide="layout-dashboard" class="w-4 h-4"></i> Mi Espacio</p></div>`}
+                    <!-- Textura de Puntos (Dot Grid) -->
+                    <div class="absolute inset-0 opacity-[0.05]" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 24px 24px;"></div>
                     
-                    <div class="flex justify-between items-start gap-4 relative z-10">
-                        <div class="text-white flex-1 min-w-0">
-                            <h2 class="text-2xl sm:text-3xl md:text-4xl font-black leading-tight mb-1 truncate drop-shadow-md">${w.name}</h2>
-                            <p class="text-white/90 text-xs sm:text-sm font-medium mb-3 flex items-center gap-2 flex-wrap"><span class="bg-white/20 px-2.5 py-1 rounded-lg backdrop-blur-md shadow-sm border border-white/10">${w.role}</span> <span class="opacity-80">CC. ${w.document}</span></p>
+                    <!-- Foco de luz volumétrica indirecta -->
+                    <div class="absolute top-0 right-0 w-[400px] h-[400px] bg-[#bb7434] rounded-full mix-blend-screen filter blur-[100px] opacity-[0.15] pointer-events-none"></div>
+
+                    <div class="relative z-10">
+                        ${role !== 'WORKER' ? `<button onclick="setView('directory')" class="text-[#cab2a2] hover:text-white mb-6 font-black text-xs sm:text-sm flex items-center gap-2 transition-all active:scale-95 uppercase tracking-widest"><i data-lucide="arrow-left" class="w-4 h-4 sm:w-4.5 sm:h-4.5"></i> Regresar</button>` : `<div class="mb-6"><p class="text-[#cab2a2] text-xs font-black uppercase tracking-widest flex items-center gap-2 drop-shadow-sm"><i data-lucide="layout-dashboard" class="w-4 h-4"></i> Mi Espacio</p></div>`}
+                        
+                        <!-- Tarjeta Principal de Glassmorphism -->
+                        <div class="bg-white/10 backdrop-blur-2xl border border-white/20 p-5 sm:p-6 md:p-8 rounded-[2rem] shadow-[0_8px_30px_rgba(0,0,0,0.12)] flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                            <div class="text-white flex-1 min-w-0">
+                                <h2 class="text-2xl sm:text-3xl md:text-4xl font-black leading-tight mb-2 truncate drop-shadow-md">${w.name}</h2>
+                                <div class="flex items-center gap-2 flex-wrap">
+                                    <span class="bg-[#bb7434] text-white px-3 py-1 rounded-lg text-[10px] sm:text-xs font-black uppercase tracking-wider shadow-md border border-[#bb7434]/50">${w.role || '-'}</span>
+                                    <span class="bg-white/10 text-[#cab2a2] px-3 py-1 rounded-lg text-[10px] sm:text-xs font-black uppercase tracking-wider backdrop-blur-md border border-white/10">CC. ${w.document || '-'}</span>
+                                </div>
+                            </div>
+                            ${canEdit ? `
+                            <div class="flex gap-2 shrink-0 w-full sm:w-auto mt-2 sm:mt-0">
+                                <button onclick="openWorkerForm('${w.id}')" class="flex-1 sm:flex-none bg-white text-[#542c1c] px-4 py-3 rounded-xl sm:rounded-2xl flex items-center justify-center gap-2 shadow-xl hover:bg-gray-50 transition-all active:scale-95 font-black text-xs sm:text-sm"><i data-lucide="edit-3" class="w-4 h-4"></i><span>Editar</span></button>
+                                ${role === 'ADMIN' ? `<button onclick="window.deleteWorker('${w.id}')" class="bg-red-500/90 text-white px-4 py-3 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-xl hover:bg-red-500 border border-red-400 transition-all active:scale-95"><i data-lucide="trash-2" class="w-4 h-4"></i></button>` : ''}
+                            </div>` : ''}
                         </div>
-                        ${canEdit ? `
-                        <div class="flex flex-col sm:flex-row gap-2 shrink-0">
-                            <button onclick="openWorkerForm('${w.id}')" class="bg-white text-[#542c1c] p-2.5 sm:px-4 sm:py-2.5 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-xl hover:bg-gray-50 transition-all active:scale-95"><i data-lucide="edit-3" class="w-4 h-4 sm:w-4.5 sm:h-4.5"></i><span class="hidden sm:inline ml-2 text-xs sm:text-sm font-bold">Editar</span></button>
-                            ${role === 'ADMIN' ? `<button onclick="window.deleteWorker('${w.id}')" class="bg-red-500/90 text-white p-2.5 sm:px-4 sm:py-2.5 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-xl hover:bg-red-500 border border-white/10 transition-all active:scale-95"><i data-lucide="trash-2" class="w-4 h-4 sm:w-4.5 sm:h-4.5"></i></button>` : ''}
-                        </div>` : ''}
                     </div>
                 </div>
 
-                <div class="px-4 sm:px-6 md:px-10 -mt-12 sm:-mt-14 relative z-10 flex flex-col sm:flex-row gap-4 items-center sm:items-end">
-                    <div class="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-[1.5rem] sm:rounded-[2rem] border-4 sm:border-[6px] border-[#f3ebe3] md:border-white bg-white shadow-xl overflow-hidden shrink-0 flex items-center justify-center text-[#bb7434] text-3xl md:text-5xl font-black relative group">
-                        ${w.photo ? `<img src="${w.photo}" loading="lazy" decoding="async" class="w-full h-full object-cover">` : window.getInitials(w.name)}
-                        ${w.status === 'activo' ? `<div class="absolute bottom-2 right-2 w-3 h-3 md:w-4 md:h-4 bg-green-500 border-2 border-white rounded-full shadow-sm"></div>` : `<div class="absolute bottom-2 right-2 w-3 h-3 md:w-4 md:h-4 bg-red-400 border-2 border-white rounded-full shadow-sm"></div>`}
+                <div class="px-4 sm:px-6 md:px-10 -mt-16 sm:-mt-20 md:-mt-24 relative z-10 flex flex-col sm:flex-row gap-4 sm:gap-6 items-center sm:items-end">
+                    <!-- FOTO DE PERFIL GIGANTE -->
+                    <div class="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 rounded-[1.5rem] sm:rounded-[2rem] md:rounded-[2.5rem] border-[6px] sm:border-[8px] border-[#f3ebe3] md:border-white bg-white shadow-2xl overflow-hidden shrink-0 flex items-center justify-center text-[#bb7434] text-4xl md:text-6xl font-black relative group transform transition-transform hover:scale-105">
+                        ${w.photo ? `<img src="${w.photo}" class="w-full h-full object-cover">` : window.getInitials(w.name)}
+                        ${w.status === 'activo' ? `<div class="absolute bottom-2 right-2 md:bottom-3 md:right-3 w-4 h-4 md:w-5 md:h-5 bg-green-500 border-[3px] border-white rounded-full shadow-md"></div>` : `<div class="absolute bottom-2 right-2 md:bottom-3 md:right-3 w-4 h-4 md:w-5 md:h-5 bg-red-400 border-[3px] border-white rounded-full shadow-md"></div>`}
                     </div>
                     
-                    <div class="flex-1 w-full grid grid-cols-2 gap-3 sm:gap-4 pb-2 sm:pb-0">
-                        <div class="bg-white p-4 sm:p-5 rounded-2xl sm:rounded-[1.5rem] card-shadow flex items-center justify-between group cursor-default hover:border-[#bb7434]/40 transition-colors">
-                            <div><p class="text-[9px] sm:text-[10px] font-black text-gray-400 uppercase tracking-widest mb-0.5">Mes Actual</p><p class="text-2xl sm:text-3xl font-black text-[#bb7434] leading-none">${monthPts}</p></div>
-                            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-orange-50 border border-orange-100 flex items-center justify-center text-orange-500 group-hover:scale-110 transition-transform shadow-inner"><i data-lucide="calendar-days" class="w-5 h-5 sm:w-6 sm:h-6"></i></div>
+                    <div class="flex-1 w-full grid grid-cols-2 gap-3 sm:gap-4 pb-2 sm:pb-4 md:pb-6">
+                        <div class="bg-gradient-to-br from-white to-orange-50/30 p-4 sm:p-5 md:p-6 rounded-2xl sm:rounded-[1.5rem] card-shadow flex items-center justify-between group cursor-default hover:border-[#bb7434]/40 transition-all hover:shadow-lg border border-gray-100">
+                            <div><p class="text-[9px] sm:text-[10px] md:text-xs font-black text-gray-400 uppercase tracking-widest mb-0.5">Mes Actual</p><p class="text-2xl sm:text-3xl md:text-4xl font-black text-[#bb7434] leading-none">${monthPts}</p></div>
+                            <div class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-2xl bg-orange-50 border border-orange-100 flex items-center justify-center text-orange-500 group-hover:scale-110 transition-transform shadow-inner"><i data-lucide="calendar-days" class="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7"></i></div>
                         </div>
-                        <div class="bg-white p-4 sm:p-5 rounded-2xl sm:rounded-[1.5rem] card-shadow flex items-center justify-between group cursor-default hover:border-gray-300 transition-colors">
-                            <div><p class="text-[9px] sm:text-[10px] font-black text-gray-400 uppercase tracking-widest mb-0.5">Histórico</p><p class="text-2xl sm:text-3xl font-black text-gray-800 leading-none">${allPts}</p></div>
-                            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gray-50 border border-gray-100 flex items-center justify-center text-gray-500 group-hover:scale-110 transition-transform shadow-inner"><i data-lucide="award" class="w-5 h-5 sm:w-6 sm:h-6"></i></div>
+                        <div class="bg-gradient-to-br from-white to-gray-50/50 p-4 sm:p-5 md:p-6 rounded-2xl sm:rounded-[1.5rem] card-shadow flex items-center justify-between group cursor-default hover:border-gray-300 transition-all hover:shadow-lg border border-gray-100">
+                            <div><p class="text-[9px] sm:text-[10px] md:text-xs font-black text-gray-400 uppercase tracking-widest mb-0.5">Histórico</p><p class="text-2xl sm:text-3xl md:text-4xl font-black text-gray-800 leading-none">${allPts}</p></div>
+                            <div class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-2xl bg-gray-50 border border-gray-100 flex items-center justify-center text-gray-500 group-hover:scale-110 transition-transform shadow-inner"><i data-lucide="award" class="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7"></i></div>
                         </div>
                     </div>
                 </div>
@@ -1503,9 +1536,9 @@
                             <div class="absolute right-0 top-0 w-24 h-24 bg-orange-50 rounded-bl-full opacity-50 pointer-events-none"></div>
                             <h4 class="text-sm font-black text-gray-800 mb-3 flex items-center gap-2 relative z-10"><i data-lucide="plus-circle" class="w-4 h-4 text-[#bb7434]"></i> Nueva Evaluación</h4>
                             <select id="pt-preset" onchange="window.handlePresetChange(this)" class="w-full mb-3 p-3 rounded-xl bg-gray-50 border border-gray-200 text-sm font-semibold text-gray-700 focus:outline-none focus:border-[#bb7434] transition-colors cursor-pointer relative z-10 shadow-sm">
-                                <option value="custom">✍️ Otro (Ingreso manual)</option>
-                                <optgroup label="✅ PUNTOS POSITIVOS">${posOptions}</optgroup>
-                                <optgroup label="🚫 PENALIZACIONES">${negOptions}</optgroup>
+                                <option value="custom">Otro (Ingreso manual)</option>
+                                <optgroup label="PUNTOS POSITIVOS">${posOptions}</optgroup>
+                                <optgroup label="PENALIZACIONES">${negOptions}</optgroup>
                             </select>
                             <div class="flex flex-col sm:flex-row gap-2 relative z-10">
                                 <div class="flex gap-2 shrink-0">
@@ -1667,8 +1700,6 @@
             });
         };
 
-        // ================== LÓGICA DE PAGOS, CONSECUTIVOS, PDF Y ZIP ================== //
-
         window.initiateCreateReceipt = () => {
             document.getElementById('pin-prompt-input').value = '';
             document.getElementById('pin-prompt-action').value = 'create_receipt';
@@ -1678,21 +1709,19 @@
 
         window.openPaymentModal = () => {
             document.getElementById('payment-form').reset();
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('pay-event-date').value = today;
             
             const amountInput = document.getElementById('pay-amount');
             amountInput.readOnly = true;
             amountInput.classList.add('bg-gray-100');
-            amountInput.placeholder = "Selecciona un servicio primero";
+            amountInput.placeholder = "Valor";
             
             const otherConceptContainer = document.getElementById('other-concept-container');
             if (otherConceptContainer) {
                 otherConceptContainer.classList.add('hidden');
                 document.getElementById('pay-other-concept').required = false;
+                document.getElementById('pay-other-concept').value = '';
             }
 
-            // Resetear recargos
             document.getElementById('pay-has-surcharge').value = 'no';
             const surchargeContainer = document.getElementById('surcharge-container');
             const surchargeInput = document.getElementById('pay-surcharge');
@@ -1701,6 +1730,9 @@
                 surchargeInput.required = false;
                 surchargeInput.value = '';
             }
+
+            const notesInput = document.getElementById('pay-notes');
+            if(notesInput) notesInput.value = '';
 
             document.getElementById('payment-modal').classList.add('active');
         };
@@ -1761,7 +1793,6 @@
                     const paddedNum = String(assignedNumber).padStart(4, '0');
                     const paymentNumberString = `LALY-CC-${yyyy}-${mm}-${paddedNum}`;
 
-                    // Cálculo del valor final (Servicio + Recargo)
                     let baseAmt = parseInt(document.getElementById('pay-amount').value) || 0;
                     let surchargeAmt = 0;
                     if(document.getElementById('pay-has-surcharge').value === 'si') {
@@ -1774,15 +1805,17 @@
                         finalService = `Otros conceptos: ${document.getElementById('pay-other-concept').value.trim()}`;
                     }
 
-                    let notesText = document.getElementById('pay-notes').value.trim();
+                    let customNotes = document.getElementById('pay-notes').value.trim();
+                    let notesText = customNotes;
                     if(surchargeAmt > 0) {
                         const formattedSurcharge = new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(surchargeAmt);
-                        notesText = notesText ? `Recargo incluido de ${formattedSurcharge}. ${notesText}` : `Recargo incluido de ${formattedSurcharge}.`;
+                        const surchargeStr = `Incluye recargos extra por ${formattedSurcharge}.`;
+                        notesText = notesText ? `${notesText} | ${surchargeStr}` : surchargeStr;
                     }
 
                     const paymentData = {
                         workerId: w.id,
-                        eventDate: document.getElementById('pay-event-date').value,
+                        eventDate: todayIso, 
                         paymentDate: todayIso,
                         service: finalService,
                         amount: totalAmt,
@@ -1822,7 +1855,6 @@
             }
         };
 
-        // Cifrado SHA-256 para el PIN
         async function hashPIN(pin) {
             const msgBuffer = new TextEncoder().encode(pin);
             const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
@@ -1945,8 +1977,9 @@
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF({ format: 'letter' });
 
-            const primaryColor = [84, 44, 28];   // #542c1c
-            const secondaryColor = [187, 116, 52]; // #bb7434
+            const primaryColor = [45, 23, 14];   
+            const secondaryColor = [187, 116, 52]; 
+            const formatCurrency = (val) => new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(val);
 
             doc.setFillColor(...primaryColor);
             doc.rect(0, 0, 215.9, 45, 'F');
@@ -1998,49 +2031,68 @@
 
             startY += 45;
 
+            // CUADRO DE INFORMACIÓN DEL SERVICIO Y PAGO
+            let box1Y = startY;
             doc.setDrawColor(...secondaryColor);
             doc.setLineWidth(0.5);
-            doc.roundedRect(20, startY, 175.9, 75, 3, 3);
+            doc.roundedRect(20, box1Y, 175.9, 95, 3, 3);
             
             doc.setFillColor(...secondaryColor);
-            doc.roundedRect(20, startY, 175.9, 12, 3, 3, 'F');
+            doc.roundedRect(20, box1Y, 175.9, 12, 3, 3, 'F');
             doc.setTextColor(255, 255, 255);
             doc.setFontSize(12);
             doc.setFont("helvetica", "bold");
-            doc.text("INFORMACIÓN DEL SERVICIO Y PAGO", 107.95, startY + 8, { align: "center" });
+            doc.text("INFORMACIÓN DEL SERVICIO Y PAGO", 107.95, box1Y + 8, { align: "center" });
 
-            startY += 22;
+            let lineY = box1Y + 22;
             doc.setTextColor(50, 50, 50);
             doc.setFontSize(11);
             
             const lCol = 25; const rCol = 120;
 
-            doc.setFont("helvetica", "bold"); doc.text("Servicio:", lCol, startY);
+            doc.setFont("helvetica", "bold"); doc.text("Servicio:", lCol, lineY);
             const serviceText = p.service || p.eventName || '-';
-            doc.setFont("helvetica", "normal"); doc.text(serviceText, lCol + 20, startY);
+            doc.setFont("helvetica", "normal"); doc.text(serviceText, lCol + 18, lineY);
 
-            doc.setFont("helvetica", "bold"); doc.text("Fecha Evento:", rCol, startY);
-            doc.setFont("helvetica", "normal"); doc.text(p.eventDate || '-', rCol + 28, startY);
+            doc.setFont("helvetica", "bold"); doc.text("Fecha Evento:", rCol, lineY);
+            doc.setFont("helvetica", "normal"); doc.text(p.eventDate || '-', rCol + 28, lineY);
 
-            startY += 10;
+            lineY += 12;
             let notesText = p.notes || 'Ninguna';
-            if (p.location) notesText = `Lugar: ${p.location}. ${notesText}`; // Soporte para facturas antiguas
+            if (p.location) notesText = `Lugar: ${p.location}. ${notesText}`;
             
-            doc.setFont("helvetica", "bold"); doc.text("Observaciones:", lCol, startY);
+            doc.setFont("helvetica", "bold"); doc.text("Observaciones:", lCol, lineY);
             const splitNotes = doc.splitTextToSize(notesText, 65);
-            doc.setFont("helvetica", "normal"); doc.text(splitNotes, lCol + 32, startY);
+            doc.setFont("helvetica", "normal"); doc.text(splitNotes, lCol + 32, lineY);
 
-            doc.setFont("helvetica", "bold"); doc.text("Fecha de Pago:", rCol, startY);
-            doc.setFont("helvetica", "normal"); doc.text(p.paymentDate || '-', rCol + 30, startY);
+            doc.setFont("helvetica", "bold"); doc.text("Fecha de Pago:", rCol, lineY);
+            doc.setFont("helvetica", "normal"); doc.text(p.paymentDate || '-', rCol + 30, lineY);
 
-            startY += 18;
-            const formatCurrency = (val) => new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(val);
+            // DESGLOSE DE VALORES (Breakdown)
+            lineY += 12 + ((splitNotes.length - 1) * 4);
+
+            doc.setDrawColor(220, 220, 220);
+            doc.setLineWidth(0.3);
+            doc.line(25, lineY, 190.9, lineY); 
+            
+            lineY += 10;
+            const baseAmt = p.baseAmount !== undefined ? p.baseAmount : p.amount;
+            const surchargeAmt = p.surcharge || 0;
+            
+            doc.setFont("helvetica", "bold"); doc.text("Valor del Servicio:", lCol, lineY);
+            doc.setFont("helvetica", "normal"); doc.text(formatCurrency(baseAmt), lCol + 36, lineY);
+
+            doc.setFont("helvetica", "bold"); doc.text("Valor Recargos:", rCol, lineY);
+            doc.setFont("helvetica", "normal"); doc.text(formatCurrency(surchargeAmt), rCol + 32, lineY);
+
+            lineY += 18;
             doc.setFontSize(16);
             doc.setFont("helvetica", "bold");
             doc.setTextColor(...primaryColor);
-            doc.text(`Total a Cobrar: ${formatCurrency(p.amount)}`, 107.95, startY, { align: "center" });
+            doc.text(`TOTAL PAGADO: ${formatCurrency(p.amount)}`, 107.95, lineY, { align: "center" });
 
-            startY += 22;
+            // Siguiente Sección
+            startY = box1Y + 105;
 
             doc.setDrawColor(200, 200, 200);
             doc.roundedRect(20, startY, 175.9, 35, 3, 3);
@@ -2188,8 +2240,6 @@
             }
         };
 
-        // ================== FIN LÓGICA DE PAGOS ================== //
-
         window.savePoint = async () => {
             const amount = parseInt(document.getElementById('pt-amount').value);
             const type = document.getElementById('pt-type').value;
@@ -2243,7 +2293,6 @@
         };
 
         window.deleteDocFile = async (id) => { if(!confirm('¿Eliminar este documento?')) return; await deleteDoc(doc(db, "documents", id)); window.setView('profile'); };
-        window.copyToClipboard = (txt) => { navigator.clipboard.writeText(txt); window.showToast('Cuenta copiada'); };
 
         window.handleBankChange = (selectElement) => {
             const numInput = document.getElementById('w-bank-num');
@@ -2270,11 +2319,11 @@
             if (id) {
                 const w = window.appState.dbWorkers.find(x => x.id === id);
                 document.getElementById('worker-modal-title').innerText = 'Editar Colaborador'; 
-                document.getElementById('w-id').value = w.id; 
+                document.getElementById('w-id').value = w.id || ''; 
                 document.getElementById('w-name').value = w.name || ''; 
                 document.getElementById('w-lastname').value = w.lastname || '';
                 document.getElementById('w-birthday').value = w.birthday || '';
-                document.getElementById('w-doc').value = w.document; 
+                document.getElementById('w-doc').value = w.document || ''; 
                 document.getElementById('w-email').value = w.email || '';
                 document.getElementById('w-phone').value = w.phone || ''; 
                 document.getElementById('w-bloodtype').value = w.bloodType || '';
@@ -2283,8 +2332,8 @@
                 document.getElementById('w-city').value = w.city || ''; 
                 document.getElementById('w-emergency-name').value = w.emergencyName || '';
                 document.getElementById('w-emergency-phone').value = w.emergencyPhone || '';
-                document.getElementById('w-role').value = w.role; 
-                document.getElementById('w-status').value = w.status; 
+                document.getElementById('w-role').value = w.role || 'Colaborador'; 
+                document.getElementById('w-status').value = w.status || 'activo'; 
                 document.getElementById('w-specs').value = w.specialties || '';
                 
                 if(canSeeBank){ 
@@ -2307,7 +2356,10 @@
                 });
 
                 if(daysToCheck.length > 0) {
-                    daysToCheck.forEach(day => { const checkbox = document.querySelector(`.w-availability-day[value="${day}"]`); if(checkbox) checked = true; });
+                    daysToCheck.forEach(day => { 
+                        const checkbox = document.querySelector(`.w-availability-day[value="${day}"]`); 
+                        if(checkbox) checkbox.checked = true;
+                    });
                     window.updateAvailabilityUI();
                     setTimeout(() => {
                         textParts.forEach(part => {
