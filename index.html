@@ -385,26 +385,32 @@
                     </div>
 
                     <div class="grid grid-cols-1 gap-3 sm:gap-4">
-                        <div>
-                            <label class="block text-[10px] sm:text-xs font-bold text-gray-500 mb-1.5 uppercase tracking-wide">Servicio Prestado</label>
-                            <div class="relative">
-                                <select required id="pay-service" onchange="window.handleServiceChange(this)" class="w-full border border-gray-200 bg-white rounded-xl p-3 pr-10 text-sm font-semibold text-gray-800 focus:border-[#bb7434] outline-none shadow-sm appearance-none cursor-pointer box-border">
-                                    <option value="" disabled selected>Selecciona un servicio...</option>
-                                    <option value="Logística">Logística</option>
-                                    <option value="Personaje botarga / princesa">Personaje botarga / princesa</option>
-                                    <option value="Personaje show musical">Personaje show musical</option>
-                                    <option value="Pintucaritas">Pintucaritas</option>
-                                    <option value="Apoyo o asistente">Apoyo o asistente</option>
-                                    <option value="Hora loca">Hora loca</option>
-                                    <option value="Animación">Animación</option>
-                                    <option value="Otros conceptos">Otros conceptos</option>
-                                </select>
-                                <i data-lucide="chevron-down" class="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none"></i>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                            <div>
+                                <label class="block text-[10px] sm:text-xs font-bold text-gray-500 mb-1.5 uppercase tracking-wide">Fecha del Evento</label>
+                                <input required type="date" id="pay-event-date" class="w-full border border-gray-200 bg-white rounded-xl p-3 text-sm font-semibold text-gray-800 focus:border-[#bb7434] outline-none shadow-sm transition-colors box-border">
                             </div>
-                            <div id="other-concept-container" class="hidden mt-3">
-                                <label class="block text-[10px] sm:text-xs font-bold text-gray-500 mb-1.5 uppercase tracking-wide">Especificar concepto o rol</label>
-                                <input type="text" id="pay-other-concept" placeholder="¿Qué labor realizaste?" class="w-full border border-gray-200 bg-white rounded-xl p-3 text-sm focus:border-[#bb7434] outline-none shadow-sm transition-colors box-border">
+                            <div>
+                                <label class="block text-[10px] sm:text-xs font-bold text-gray-500 mb-1.5 uppercase tracking-wide">Servicio Prestado</label>
+                                <div class="relative">
+                                    <select required id="pay-service" onchange="window.handleServiceChange(this)" class="w-full border border-gray-200 bg-white rounded-xl p-3 pr-10 text-sm font-semibold text-gray-800 focus:border-[#bb7434] outline-none shadow-sm appearance-none cursor-pointer box-border">
+                                        <option value="" disabled selected>Selecciona un servicio...</option>
+                                        <option value="Logística">Logística</option>
+                                        <option value="Personaje botarga / princesa">Personaje botarga / princesa</option>
+                                        <option value="Personaje show musical">Personaje show musical</option>
+                                        <option value="Pintucaritas">Pintucaritas</option>
+                                        <option value="Apoyo o asistente">Apoyo o asistente</option>
+                                        <option value="Hora loca">Hora loca</option>
+                                        <option value="Animación">Animación</option>
+                                        <option value="Otros conceptos">Otros conceptos</option>
+                                    </select>
+                                    <i data-lucide="chevron-down" class="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none"></i>
+                                </div>
                             </div>
+                        </div>
+                        <div id="other-concept-container" class="hidden mt-1">
+                            <label class="block text-[10px] sm:text-xs font-bold text-gray-500 mb-1.5 uppercase tracking-wide">Especificar concepto o rol</label>
+                            <input type="text" id="pay-other-concept" placeholder="¿Qué labor realizaste?" class="w-full border border-gray-200 bg-white rounded-xl p-3 text-sm focus:border-[#bb7434] outline-none shadow-sm transition-colors box-border">
                         </div>
                         
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 p-3 bg-gray-100/50 rounded-xl border border-gray-200/60">
@@ -1710,6 +1716,9 @@
         window.openPaymentModal = () => {
             document.getElementById('payment-form').reset();
             
+            const todayIso = new Date().toISOString().split('T')[0];
+            document.getElementById('pay-event-date').value = todayIso;
+            
             const amountInput = document.getElementById('pay-amount');
             amountInput.readOnly = true;
             amountInput.classList.add('bg-gray-100');
@@ -1757,6 +1766,7 @@
 
             try {
                 const todayIso = new Date().toISOString().split('T')[0]; 
+                const eventDateInput = document.getElementById('pay-event-date').value;
                 const parts = todayIso.split('-');
                 const yyyy = parts[0];
                 const mm = parts[1];
@@ -1815,7 +1825,7 @@
 
                     const paymentData = {
                         workerId: w.id,
-                        eventDate: todayIso, 
+                        eventDate: eventDateInput, 
                         paymentDate: todayIso,
                         service: finalService,
                         amount: totalAmt,
